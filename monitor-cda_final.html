@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard CDA Final - ABBREVIA S.p.A. | SCAN</title>
+    <!-- Librerie Esterne -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="./css/print.css" rel="stylesheet" media="print">
+    <link href="./css/monitor_cda.css" rel="stylesheet">
+
+</head>
+<body>
+
+   <!-- Sidebar -->
+    <aside class="sidebar no-print">
+         <div class="sidebar-header">   <img src="assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;">
+ <h5>ABBREVIA S.p.A.</h5> </div>
+         <ul class="sidebar-nav flex-grow-1">
+             <li class="nav-item"> <a class="nav-link active" href="monitor-cda_final.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Overview CDA </a> </li>
+             <!-- Link Interni alla Pagina -->
+             <li class="nav-item"> <a class="nav-link" href="#kpi-section"> <i class="fas fa-key fa-fw"></i> KPI Principali </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#charts-section"> <i class="fas fa-chart-pie fa-fw"></i> Grafici Chiave </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#alerts-section"> <i class="fas fa-bell fa-fw"></i> Alert e Rischi </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#details-accordion"> <i class="fas fa-layer-group fa-fw"></i> Approfondimenti </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#actions-summary"> <i class="fas fa-tasks fa-fw"></i> Azioni Prioritarie </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="index.html"> <i class="fas fa-home fa-fw"></i> Torna alla home </a> </li>
+         </ul>
+         <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+     </aside>
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                 <h5 class="mb-0">Dashboard Esecutiva CDA</h5>
+                 <p class="mb-0">ABBREVIA S.p.A. | <span class="report-date">30 Luglio 2025</span></p>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">ABBREVIA S.p.A.</span></h1>
+            <p class="text-center mb-0">Dashboard Esecutiva CDA | <span class="report-date">30 Luglio 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Dashboard CDA -->
+        <div class="dashboard-container">
+
+            <!-- Executive Summary Card (Updated for ABBREVIA S.p.A.) -->
+            <div class="card executive-summary-card mb-4 report-section">
+                 <div class="card-body">
+                     <div class="row align-items-center">
+                         <div class="col-lg-8">
+                             <h4 class="card-title mb-3" style="color: var(--primary);"><i class="fas fa-info-circle me-2"></i>Executive Summary</h4>
+                             <p class="mb-2">L'analisi finanziaria di ABBREVIA S.p.A. evidenzia un <strong>profilo di rischio basso (IRP 85,81)</strong>, con un'azienda classificata come STAR che mantiene un buon equilibrio patrimoniale. L'EBITDA margin del 20,60% è significativamente superiore alla media di settore, con un Leanus Score "3 - Discreto" (3,85).</p>
+                             <p class="mb-0 text-warning">Le <strong>aree di criticità</strong> includono la <strong>copertura immobilizzazioni</strong> (0,85), i <strong>tempi di incasso elevati</strong> (110 giorni) e gli <strong>oneri finanziari eccessivi</strong> (18,28% dei debiti medi). Gli interventi proposti possono migliorare significativamente la generazione di cassa e la sostenibilità finanziaria.</p>
+                         </div>
+                         <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                              <h6 class="card-title-small mb-1">Indice Rischio (IRP)</h6>
+                              <!-- IRP ABBREVIA -->
+                              <div class="irp-score-circle risk-low mx-auto" style="width: 110px; height: 110px; border-width: 4px;">
+    <span class="irp-score-value" style="font-size: 2.8rem;">85,8</span>
+    <span class="irp-score-max" style="font-size: 0.7rem;">/ 100</span>
+</div>
+<div class="irp-category-text text-success mt-1" style="font-size: 1rem;">
+    Rischio Basso <span class="status-badge bg-success">B+</span>
+</div>
+                            
+                             <a href="report/irp_dettaglio.html" target="_blank" class="btn btn-link btn-sm p-0 mt-1 small">Dettaglio IRP</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Sezione KPI Principali V4 (8 KPI - Updated for ABBREVIA S.p.A.) -->
+             <section id="kpi-section" class="report-section">
+                  <h4 class="section-title small"><i class="fas fa-key me-2"></i>INDICATORI CHIAVE</h4>
+                   <div class="row gy-4">
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-euro-sign"></i></span> <div class="kpi-content"> <div class="kpi-title">Ricavi</div> <div class="kpi-value">€ 9,75 M</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +7,46% YoY</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-percent"></i></span> <div class="kpi-content"> <div class="kpi-title">EBITDA Margin</div> <div class="kpi-value">20,60%</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +2,70 p.p.</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-chart-line"></i></span> <div class="kpi-content"> <div class="kpi-title">EBITDA</div> <div class="kpi-value">€ 2,01 M</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +23,58% YoY</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-warning"><i class="fas fa-coins"></i></span> <div class="kpi-content"> <div class="kpi-title">Utile Netto</div> <div class="kpi-value">€ 565 K</div> <div class="kpi-trend trend-down"><i class="fas fa-arrow-down"></i> -39,77%</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-balance-scale-right"></i></span> <div class="kpi-content"> <div class="kpi-title">PFN / EBITDA</div> <div class="kpi-value">1,00x</div> <div class="kpi-trend trend-neutral"><i class="fas fa-equals"></i> Stabile</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-landmark"></i></span> <div class="kpi-content"> <div class="kpi-title">Leva (D/E)</div> <div class="kpi-value">0,39x</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +0,31</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-warning"><i class="fas fa-hourglass-half"></i></span> <div class="kpi-content"> <div class="kpi-title">Ciclo Circolante</div> <div class="kpi-value">61 gg</div> <div class="kpi-trend trend-down"><i class="fas fa-arrow-down"></i> -14 gg</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-water"></i></span> <div class="kpi-content"> <div class="kpi-title">Cash Flow Operativo</div> <div class="kpi-value">€ 1,38 M</div> <div class="kpi-trend trend-up text-success"><i class="fas fa-arrow-up"></i> +14,13% Ricavi</div> </div> </div> </div>
+                 </div>
+             </section>
+
+             <!-- Sezione Alert Principali (Updated for ABBREVIA S.p.A.) -->
+             <section id="alerts-section" class="report-section">
+                 <h4 class="section-title small"><i class="fas fa-bell me-2 text-warning"></i>ALERT PRINCIPALI</h4>
+                 <div class="row">
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-warning">
+                             <i class="fas fa-percentage alert-icon"></i>
+                             <div>
+                                 <h5>Oneri Finanziari Elevati <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                 <p>Costo del debito al 18,28% significativamente superiore ai tassi di mercato, con oneri finanziari pari a €249.561.</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-warning">
+                             <i class="fas fa-balance-scale-right alert-icon"></i>
+                             <div>
+                                 <h5>Copertura Immobilizzazioni <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                 <p>Indice di copertura delle immobilizzazioni pari a 0,85, inferiore alla soglia ottimale di 1, segnalando uno squilibrio fonti-impieghi.</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-warning">
+                              <i class="fas fa-hourglass-half alert-icon"></i>
+                              <div>
+                                   <h5>Tempi di Incasso Elevati <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                   <p>DSO pari a 110 giorni, significativamente superiore al benchmark settoriale (90 giorni), con assorbimento di liquidità.</p>
+                              </div>
+                         </div>
+                     </div>
+                      <div class="col-lg-6 mb-4">
+                          <div class="alert-card alert-warning">
+                               <i class="fas fa-coins alert-icon"></i>
+                               <div>
+                                   <h5>Riduzione Utile Netto <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                   <p>Contrazione dell'utile netto del 39,77% rispetto all'anno precedente, nonostante la crescita dei ricavi e dell'EBITDA.</p>
+                               </div>
+                          </div>
+                      </div>
+                 </div>
+             </section>
+
+             <!-- Sezione Grafici Chiave CDA (Updated for ABBREVIA S.p.A.) -->
+             <section id="charts-section" class="report-section">
+                   <h4 class="section-title small"><i class="fas fa-chart-pie me-2"></i>GRAFICI CHIAVE</h4>
+                   <div class="row">
+                       <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Trend Economico (Ricavi/EBITDA)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                     <canvas id="trendRicaviEbitdaChart"></canvas>
+                                 </div>
+                            </div>
+                       </div>
+                       <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Redditività e Leva (ROE/ROI/D:E)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                      <canvas id="trendPfnEbitdaChart"></canvas>
+                                 </div>
+                            </div>
+                       </div>
+                        <!-- Grafico Ciclo Circolante -->
+                         <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Evoluzione Ciclo Circolante (Giorni)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                     <canvas id="trendWorkingCapitalChart"></canvas>
+                                </div>
+                            </div>
+                       </div>
+                        <div class="col-lg-6 mb-4">
+                           <div class="dashboard-card chart-card">
+                               <h6 class="card-title-modern">Generazione Cassa Operativa (% Ricavi)</h6>
+                               <div class="chart-container-cda" style="height: 350px;">
+                                    <canvas id="trendCashFlowOpChart"></canvas>
+                               </div>
+                           </div>
+                      </div>
+                   </div>
+              </section>
+
+             <!-- SEZIONI DI DETTAGLIO CON ACCORDION (Updated for ABBREVIA S.p.A.) -->
+             <h2 class="section-title mt-5" id="details-accordion"><i class="fas fa-layer-group me-2"></i>Approfondimenti Dettagliati</h2>
+             <div class="accordion report-section" id="cdaDetailsAccordion">
+
+                 <!-- 1. Dettaglio Performance Economica -->
+                 <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingEconomic"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEconomic" aria-expanded="false" aria-controls="collapseEconomic"> <i class="fas fa-chart-line me-2"></i> Performance Economica<span class="badge bg-success ms-2">Ottima</span> </button> </h2>
+                     <div id="collapseEconomic" class="accordion-collapse collapse" aria-labelledby="headingEconomic" data-bs-parent="#cdaDetailsAccordion">
+                         <div class="accordion-body">
+                              <!-- Contenuto per ABBREVIA S.p.A. -->
+                              <h6>Principali indicatori economici</h6>
+                              <div class="table-responsive mb-3"><table class="table table-sm table-striped">
+                                  <tbody><tr><td>Ricavi</td><td class="value-highlight">€9.752.677</td><td><i class="fas fa-arrow-up text-success"></i> +7,46%</td></tr><tr><td>EBITDA</td><td class="value-highlight">€2.009.458 (20,60%)</td><td><i class="fas fa-arrow-up text-success"></i> +23,58%</td></tr><tr><td>EBIT</td><td class="value-highlight">€809.640 (8,30%)</td><td><i class="fas fa-arrow-down text-danger"></i> -37,15%</td></tr><tr><td>Utile Netto</td><td class="value-highlight">€564.812 (5,80%)</td><td><i class="fas fa-arrow-down text-danger"></i> -39,77%</td></tr><tr><td>Margine di Contribuzione</td><td class="value-highlight">40,10%</td><td><i class="fas fa-arrow-up text-success"></i> +19,81%</td></tr><tr><td>Break-Even Point</td><td class="value-highlight">€4.750.375</td><td><span class="badge bg-success">+51,29% margine</span></td></tr></tbody>
+                              </table></div>
+                              <h6>Indici di redditività</h6>
+                              <div class="table-responsive mb-3"><table class="table table-sm table-striped">
+                                   <tbody><tr><td>ROE</td><td class="value-highlight">8,56%</td><td><i class="fas fa-arrow-down text-danger"></i> -38,38 p.p.</td><td><span class="badge bg-warning text-dark">Sufficiente</span> (>7%)</td></tr><tr><td>ROI</td><td class="value-highlight">9,41%</td><td><i class="fas fa-arrow-down text-danger"></i> -76,52 p.p.</td><td><span class="badge bg-success">Buono</span> (>8%)</td></tr><tr><td>ROS</td><td class="value-highlight">8,30%</td><td><i class="fas fa-arrow-down text-danger"></i> -5,90 p.p.</td><td><span class="badge bg-success">Buono</span> (>6%)</td></tr><tr><td>Turnover Capitale</td><td class="value-highlight">1,13x</td><td><i class="fas fa-arrow-down text-danger"></i> -4,92x</td><td><span class="badge bg-success">Buono</span> (>1,0x)</td></tr><tr><td>EBIT/Oneri Fin.</td><td class="value-highlight">3,24x</td><td><i class="fas fa-arrow-up text-success"></i> n.d.</td><td><span class="badge bg-warning text-dark">Adeguato</span> (>3x)</td></tr><tr><td>Costo Medio Debito</td><td class="value-highlight">18,28%</td><td><i class="fas fa-arrow-up text-danger"></i> +15,48 p.p.</td><td><span class="badge bg-danger">Critico</span></td></tr></tbody>
+                              </table></div>
+                              <h6 class="mt-3">Evoluzione Conto Economico (Dettaglio)</h6>
+                              <div class="table-responsive"><table class="table table-sm table-striped table-hover">
+                                  <thead class="table-light"><tr><th>Voce</th><th class="text-end">2022 (€)</th><th class="text-end">2023 (€)</th><th class="text-end">2024 (€)</th><th class="text-end">Var % 23-24</th></tr></thead>
+                                  <tbody><tr><td>Ricavi</td><td class="text-end">7.827K</td><td class="text-end">9.076K</td><td class="text-end">9.753K</td><td class="text-end text-success">+7,5%</td></tr><tr><td>Acquisti</td><td class="text-end">-26K</td><td class="text-end">-26K</td><td class="text-end">-29K</td><td class="text-end text-danger">+14,9%</td></tr><tr><td>Valore Aggiunto</td><td class="text-end">7.801K</td><td class="text-end">9.050K</td><td class="text-end">9.723K</td><td class="text-end text-success">+7,4%</td></tr><tr><td>Costi variabili</td><td class="text-end">-4.886K</td><td class="text-end">-5.784K</td><td class="text-end">-5.810K</td><td class="text-end text-danger">+0,5%</td></tr><tr><td>MdC</td><td class="text-end">2.915K</td><td class="text-end">3.266K</td><td class="text-end">3.913K</td><td class="text-end text-success">+19,8%</td></tr><tr><td>Costi fissi</td><td class="text-end">-1.421K</td><td class="text-end">-1.640K</td><td class="text-end">-1.904K</td><td class="text-end text-danger">+16,1%</td></tr><tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">1.495K</td><td class="text-end">1.626K</td><td class="text-end">2.009K</td><td class="text-end text-success">+23,6%</td></tr><tr><td>Amm.ti/Svalut.</td><td class="text-end">-196K</td><td class="text-end">-338K</td><td class="text-end">-1.200K</td><td class="text-end text-danger">+255,2%</td></tr><tr><td>EBIT</td><td class="text-end">1.298K</td><td class="text-end">1.288K</td><td class="text-end">810K</td><td class="text-end text-danger">-37,2%</td></tr><tr><td>Componenti straordinarie</td><td class="text-end">-50K</td><td class="text-end">36K</td><td class="text-end">84K</td><td class="text-end text-success">+135,0%</td></tr><tr><td>Gest. Finanziaria</td><td class="text-end">52K</td><td class="text-end">-4K</td><td class="text-end">-249K</td><td class="text-end text-danger">+5.743,3%</td></tr><tr><td>EBT</td><td class="text-end">1.300K</td><td class="text-end">1.320K</td><td class="text-end">644K</td><td class="text-end text-danger">-51,2%</td></tr><tr><td>Imposte</td><td class="text-end">-388K</td><td class="text-end">-382K</td><td class="text-end">-79K</td><td class="text-end text-success">-79,3%</td></tr><tr class="table-success fw-bold"><td>Utile Netto</td><td class="text-end">912K</td><td class="text-end">938K</td><td class="text-end">565K</td><td class="text-end text-danger">-39,8%</td></tr></tbody>
+                              </table></div>
+                              <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>EBITDA margin eccellente (20,60%)</li><li>Crescita significativa EBITDA (+23,58%)</li><li>Margine di contribuzione ottimo (40,10%)</li><li>Break-even favorevole (51,29% margine)</li></ul></div></div> <div class="col-md-6"><div class="alert alert-danger small p-2"><h6>Aree di miglioramento:</h6><ul><li>Costo del debito elevato (18,28%)</li><li>Contrazione EBIT (-37,15%)</li><li>Riduzione utile netto (-39,77%)</li><li>Incremento significativo ammortamenti</li></ul></div></div></div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <!-- Dettaglio Struttura Patrimoniale -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingAssets"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAssets" aria-expanded="false" aria-controls="collapseAssets"> <i class="fas fa-landmark me-2"></i> Struttura Patrimoniale <span class="badge bg-warning ms-2 text-dark">Adeguata</span></button> </h2>
+                      <div id="collapseAssets" class="accordion-collapse collapse" aria-labelledby="headingAssets" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                               <!-- Contenuto per ABBREVIA S.p.A. -->
+                               <div class="row mb-4">
+                                  <div class="col-md-6"><h6>Stato Patrimoniale Sintetico (Impieghi)</h6><table class="table table-sm table-striped"><tbody><tr><td>Attivo Fisso Netto</td><td class="value-highlight">€7.783.314</td><td><i class="fas fa-arrow-up text-danger"></i> +641,40%</td></tr><tr><td>- Imm. materiali</td><td>€62.651</td><td><i class="fas fa-arrow-down text-success"></i> -32,71%</td></tr><tr><td>- Imm. immateriali</td><td>€7.594.208</td><td><i class="fas fa-arrow-up text-danger"></i> +725,26%</td></tr><tr><td>- Imm. finanziarie</td><td>€126.455</td><td><i class="fas fa-arrow-up text-danger"></i> +246,88%</td></tr><tr><td>Capitale Circolante</td><td class="value-highlight">€3.762.961</td><td><i class="fas fa-arrow-up text-danger"></i> +8,10%</td></tr><tr><td>- Crediti comm.</td><td>€2.962.347</td><td><i class="fas fa-arrow-up text-danger"></i> +8,67%</td></tr><tr><td>- Rimanenze</td><td>€0</td><td><i class="fas fa-equals text-secondary"></i> 0,00%</td></tr><tr><td>- Debiti comm.</td><td>-€826.230</td><td><i class="fas fa-arrow-up text-danger"></i> +48,30%</td></tr><tr class="table-primary fw-bold"><td>Capitale Investito Netto</td><td class="value-highlight">€9.658.201</td><td><i class="fas fa-arrow-up text-danger"></i> +229,89%</td></tr></tbody></table></div>
+                                  <div class="col-md-6"><h6>Struttura delle Fonti</h6><table class="table table-sm table-striped"><tbody><tr><td>Patrimonio Netto</td><td class="value-highlight">€6.600.157</td><td><i class="fas fa-arrow-up text-success"></i> +230,35%</td></tr><tr><td>PFN</td><td class="value-highlight">€2.005.628</td><td><i class="fas fa-arrow-up text-danger"></i> +502,09%</td></tr><tr><td>- Debiti finanziari</td><td>€2.578.009</td><td><i class="fas fa-arrow-up text-danger"></i> +1.592,86%</td></tr><tr><td>- Liquidità</td><td>€572.381</td><td><i class="fas fa-arrow-down text-danger"></i> -12,09%</td></tr><tr class="table-primary fw-bold"><td>Totale Fonti</td><td class="value-highlight">€9.658.201</td><td><i class="fas fa-arrow-up text-danger"></i> +229,89%</td></tr></tbody></table></div>
+                               </div>
+                               <h6>Indici di Solidità Patrimoniale</h6>
+                               <div class="table-responsive"><table class="table table-sm table-striped table-hover">
+                                   <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Valutazione</th></tr></thead>
+                                   <tbody><tr><td>Autonomia Fin.</td><td>PN / Tot Passivo</td><td class="text-end">50,2%</td><td class="text-end">44,1%</td><td class="text-end">57,2%</td><td><span class="status-badge bg-success">Ottima</span></td></tr><tr><td>Cop. Immob.</td><td>PN/AF</td><td class="text-end">2,52</td><td class="text-end">1,90</td><td class="text-end">0,85</td><td><span class="status-badge bg-warning text-dark">Adeguata</span></td></tr><tr><td>Struttura Primario</td><td>PN / AF</td><td class="text-end">2,52</td><td class="text-end">1,90</td><td class="text-end">0,85</td><td><span class="status-badge bg-warning text-dark">Adeguata</span></td></tr><tr><td>Struttura Secondario</td><td>(PN+PConsolidate)/AF</td><td class="text-end">3,02</td><td class="text-end">2,16</td><td class="text-end">0,88</td><td><span class="status-badge bg-warning text-dark">Adeguata</span></td></tr><tr><td>Leva Finanziaria (D/E)</td><td>Debt Fin / PN</td><td class="text-end">0,18</td><td class="text-end">0,08</td><td class="text-end">0,39</td><td><span class="status-badge bg-success">Ottima</span></td></tr><tr><td>PFN/EBITDA</td><td>PFN / EBITDA</td><td class="text-end">-0,39</td><td class="text-end">-0,31</td><td class="text-end">1,00</td><td><span class="status-badge bg-success">Eccellente</span></td></tr></tbody>
+                               </table></div>
+                               <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>Autonomia finanziaria eccellente (57,2%)</li><li>PFN/EBITDA ottimo (1,00)</li><li>Leva finanziaria contenuta (0,39)</li><li>Patrimonio netto in forte crescita (+230,35%)</li></ul></div></div> <div class="col-md-6"><div class="alert alert-warning small p-2"><h6>Aree di attenzione:</h6><ul><li>Copertura immobilizzazioni sotto soglia (0,85)</li><li>Incremento significativo PFN (+502,09%)</li><li>Riduzione liquidità (-12,09%)</li><li>Squilibrio fonti-impieghi</li></ul></div></div></div>
+                          </div>
+                      </div>
+                  </div>
+
+                 <!-- Dettaglio Situazione Finanziaria e Flussi -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingFinancial"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinancial" aria-expanded="false" aria-controls="collapseFinancial"> <i class="fas fa-university me-2"></i> Situazione Finanziaria e Flussi<span class="badge bg-success ms-2">Solida</span> </button> </h2>
+                      <div id="collapseFinancial" class="accordion-collapse collapse" aria-labelledby="headingFinancial" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                              <!-- Contenuto per ABBREVIA S.p.A. -->
+                               <div class="row mb-4">
+                                   <div class="col-md-6"><h6>Indicatori Sostenibilità Debito</h6><table class="table table-sm table-striped"><tbody><tr><td>PFN/EBITDA</td><td class="value-highlight">1,00</td><td><span class="badge bg-success">Eccellente</span></td></tr><tr><td>Leva (D/E)</td><td class="value-highlight">0,39</td><td><span class="badge bg-success">Ottima</span></td></tr><tr><td>DSCR</td><td class="value-highlight">17,767</td><td><span class="badge bg-success">Eccellente</span></td></tr><tr><td>Oneri Fin./Ricavi</td><td class="value-highlight">2,56%</td><td><span class="badge bg-warning text-dark">Elevato</span></td></tr><tr><td>CF Op./Ricavi</td><td class="value-highlight">14,13%</td><td><span class="badge bg-success">Ottimo</span></td></tr><tr><td>EBIT/Oneri Fin.</td><td class="value-highlight">3,24</td><td><span class="badge bg-success">Adeguato</span></td></tr></tbody></table></div>
+                                   <div class="col-md-6"><h6>Posizione Finanziaria Netta</h6><table class="table table-sm table-striped"><tbody><tr><td>Debiti finanziari</td><td class="value-highlight">€2.578.009</td><td><i class="fas fa-arrow-up text-danger"></i> +1.592,86%</td></tr><tr><td>Liquidità</td><td class="value-highlight">€572.381</td><td><i class="fas fa-arrow-down text-danger"></i> -12,09%</td></tr><tr class="table-warning fw-bold"><td>PFN</td><td class="value-highlight">€2.005.628</td><td><i class="fas fa-arrow-up text-danger"></i> +502,09%</td></tr></tbody></table></div>
+                               </div>
+                                <h6 class="mt-3">Capacità di Indebitamento</h6>
+                                <div class="table-responsive"><table class="table table-sm table-striped">
+                                     <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">Valore</th><th>Interpretazione</th></tr></thead>
+                                     <tbody><tr><td>Capacità teorica indebitamento incrementale</td><td class="text-end text-success">€2.841.000</td><td>Significativa capacità di assumere nuovo debito</td></tr><tr><td>Stress test - Riduzione ricavi che rende EBIT=0</td><td class="text-end">-20,69%</td><td>Buon buffer operativo</td></tr><tr><td>Stress test - Aumento costi fissi che rende EBIT=0</td><td class="text-end">+42,53%</td><td>Buona resilienza a shock di costo</td></tr>
+                                     <tr class="table-success fw-bold"><td>DSCR (Debt Service Coverage Ratio)</td><td class="text-end text-success">17,767</td><td>Eccellente - ampiamente superiore ai criteri bancari</td></tr><tr><td>Probabilità di Default (MCC)</td><td class="text-end text-warning">5,18%</td><td>Moderata - FASCIA "4"</td></tr><tr class="table-warning fw-bold"><td>Leanus Score</td><td class="text-end text-warning">3,85</td><td>Profilo "3 - Discreto"</td></tr></tbody>
+                                </table></div>
+                               <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>Cash Flow Operativo eccellente (€1.378.364)</li><li>DSCR eccellente (17,767)</li><li>PFN/EBITDA ottimo (1,00)</li><li>Capacità indebitamento significativa</li></ul></div></div> <div class="col-md-6"><div class="alert alert-warning small p-2"><h6>Aree di attenzione:</h6><ul><li>Oneri finanziari elevati (18,28%)</li><li>Incremento significativo debiti finanziari</li><li>Riduzione liquidità (-12,09%)</li><li>Assenza di debiti a M/L termine</li></ul></div></div></div>
+                          </div>
+                      </div>
+                   </div>
+
+                  <!-- Dettaglio Capitale Circolante -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingCapital"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCapital" aria-expanded="false" aria-controls="collapseCapital"> <i class="fas fa-sync-alt me-2"></i> Capitale Circolante <span class="badge bg-warning ms-2 text-dark">Da ottimizzare</span> </button> </h2>
+                      <div id="collapseCapital" class="accordion-collapse collapse" aria-labelledby="headingCapital" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                              <!-- Contenuto per ABBREVIA S.p.A. -->
+                              <div class="row mb-4">
+                                  <div class="col-md-6"><h6>Ciclo del Capitale Circolante</h6><table class="table table-sm table-striped"><tbody>
+<tr><td>Giorni Clienti (DSO)</td><td class="value-highlight">110 gg</td><td class="text-secondary"><i class="fas fa-arrow-up"></i> +1 gg</td><td><span class="badge bg-warning text-dark">Elevato</span></td></tr><tr><td>Giorni Magazzino (DIO)</td><td class="value-highlight">0 gg</td><td class="text-success"><i class="fas fa-equals"></i> 0 gg</td><td><span class="badge bg-success">Ottimale</span></td></tr><tr><td>Giorni Fornitori (DPO)</td><td class="value-highlight">49 gg</td><td class="text-success"><i class="fas fa-arrow-up"></i> +15 gg</td><td><span class="badge bg-success">Adeguato</span></td></tr><tr class="table-warning fw-bold"><td>Ciclo del Circolante</td><td class="value-highlight">61 gg</td><td class="text-success"><i class="fas fa-arrow-down"></i> -14 gg</td><td><span class="badge bg-warning text-dark">Moderato</span></td></tr></tbody></table></div>
+                                  <div class="col-md-6"><h6>Test di Congruità Componenti</h6><table class="table table-sm table-striped"><tbody><tr><td>Crediti vs benchmark</td><td class="value-highlight">110 gg vs 90 gg</td><td class="text-warning">Eccesso moderato</td></tr><tr><td>Debiti vs benchmark</td><td class="value-highlight">49 gg vs 60 gg</td><td class="text-warning">Deficit moderato</td></tr><tr><td>Working Capital/Ricavi</td><td class="value-highlight">21,90%</td><td class="text-warning">Moderato</td></tr></tbody></table></div>
+                              </div>
+                              <h6>Evoluzione Capitale Circolante</h6>
+                              <div class="table-responsive"><table class="table table-sm table-striped">
+                                  <thead class="table-light"><tr><th>Componente</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Variazione</th></tr></thead>
+                                  <tbody><tr><td>Crediti Clienti</td><td class="text-end">€2.094K</td><td class="text-end">€2.726K</td><td class="text-end">€2.962K</td><td><span class="badge bg-danger">+€236K</span></td></tr><tr><td>Rimanenze</td><td class="text-end">€0K</td><td class="text-end">€0K</td><td class="text-end">€0K</td><td><span class="badge bg-success">€0K</span></td></tr><tr><td>Debiti Fornitori</td><td class="text-end">€615K</td><td class="text-end">€557K</td><td class="text-end">€826K</td><td><span class="badge bg-success">+€269K</span></td></tr><tr><td>Altri Debiti</td><td class="text-end">€758K</td><td class="text-end">€1.551K</td><td class="text-end">€1.297K</td><td><span class="badge bg-success">-€254K</span></td></tr></tbody>
+                              </table></div>
+                              <div class="alert alert-warning mt-3 small p-2"><h5>Aree di ottimizzazione del circolante:</h5><ul><li>Tempi di incasso elevati (DSO 110 giorni vs benchmark 90 giorni)</li><li>Potenziale liberazione di liquidità di circa €541.820 riducendo DSO a 90 giorni</li><li>Possibilità di estendere i termini di pagamento fornitori (da 49 a 55-60 giorni)</li><li>Capitale circolante netto commerciale pari a €2.136.117 (21,9% dei ricavi)</li></ul></div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Dettaglio Rischi -->
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingRisk"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRisk" aria-expanded="false" aria-controls="collapseRisk"> <i class="fas fa-exclamation-triangle me-2"></i> Profilo di Rischio <span class="badge bg-success ms-2">Basso</span></button> </h2>
+                       <div id="collapseRisk" class="accordion-collapse collapse" aria-labelledby="headingRisk" data-bs-parent="#cdaDetailsAccordion">
+                           <div class="accordion-body">
+                               <!-- Contenuto per ABBREVIA S.p.A. -->
+                                <div class="row">
+                                   <div class="col-md-6"><h6>Indice Rischio Ponderato (IRP)</h6><p>Valore: <strong>85,81 / 100</strong> <span class="badge bg-success">CATEGORIA B+</span></p>
+<table class="table table-sm">
+    <tr><td>Coefficiente di Ponderazione</td><td class="text-end">90,17</td></tr>
+    <tr><td>Leanus Score Norm.</td><td class="text-end">90,50</td></tr>
+    <tr><td>MCC Rating Norm.</td><td class="text-end">76,44</td></tr>
+    <tr><td>Z-Score Norm.</td><td class="text-end">90,00</td></tr>
+</table>
+<p class="text-muted small">L'azienda presenta un profilo di rischio basso con solidità eccellente, pur in presenza di alcune aree di attenzione.</p>
+</div>
+                                   <div class="col-md-6"><h6>Modelli di Rating</h6><table class="table table-sm"><tbody><tr><td>Z-Score Altman</td><td class="value-highlight">3,26</td><td><span class="badge bg-success">Zona Sicura</span></td></tr><tr><td>PD (MCC)</td><td class="value-highlight">5,18%</td><td><span class="badge bg-warning text-dark">Fascia 4</span></td></tr><tr><td>Leanus Score</td><td class="value-highlight">3,85 - Discreto</td><td><span class="badge bg-warning text-dark">Discreto</span></td></tr><tr><td>DSCR</td><td class="value-highlight">17,767</td><td><span class="badge bg-success">Eccellente</span></td></tr><tr><td>IRP Finale</td><td class="value-highlight">85,81</td><td><span class="badge bg-success">Categoria B+</span></td></tr></tbody></table></div>
+                                </div>
+                                <h6 class="mt-3">Stress Test Sintesi</h6>
+                                <p class="small">Resistenza Ricavi: -20,69% | Resistenza Costi: +42,53% | Liquidità critica: +22gg variazione DSO</p>
+                                <div class="row mt-3"><div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>Z-Score elevato (3,26)</li><li>Eccellente marginalità operativa (20,60%)</li><li>PFN/EBITDA ottimo (1,00)</li><li>DSCR eccellente (17,767)</li><li>Cash flow operativo positivo (14,13%)</li></ul></div></div><div class="col-md-6"><div class="alert alert-warning small p-2"><h6>Red Flags:</h6><ul><li>Costo del debito elevato (18,28%)</li><li>Copertura immobilizzazioni sotto soglia (0,85)</li><li>DSO elevato (110 giorni)</li><li>Riduzione utile netto (-39,77%)</li></ul></div></div></div>
+                           </div>
+                       </div>
+                   </div>
+
+                  <!-- Dettaglio Azioni Raccomandate -->
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingActions"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseActions" aria-expanded="false" aria-controls="collapseActions"> <i class="fas fa-lightbulb me-2"></i> Piano d'Azione </button> </h2>
+                       <div id="collapseActions" class="accordion-collapse collapse" aria-labelledby="headingActions" data-bs-parent="#cdaDetailsAccordion">
+                           <div class="accordion-body">
+                               <!-- Contenuto per ABBREVIA S.p.A. -->
+                               <div class="action-item priority-high"><h6>PRIORITÀ ALTA: Ottimizzazione Capitale Circolante</h6><div class="action-detail"><strong>1a. Gestione crediti:</strong> Riduzione DSO da 110 a 90 giorni con liberazione di circa €541.820 di liquidità.</div><div class="action-detail"><strong>1b. Rinegoziazione fornitori:</strong> Estensione DPO da 49 a 55 giorni per migliorare il cash flow.</div></div>
+                               <div class="action-item priority-high"><h6>PRIORITÀ ALTA: Ristrutturazione Debito</h6><div class="action-detail"><strong>2a. Rinegoziazione oneri:</strong> Riduzione costo del debito dal 18,28% a livelli di mercato (7-10%).</div><div class="action-detail"><strong>2b. Riequilibrio fonti-impieghi:</strong> Conversione debito a breve in medio-lungo termine per migliorare copertura immobilizzazioni.</div></div>
+                               <div class="action-item priority-medium"><h6>PRIORITÀ MEDIA: Revisione Politiche di Ammortamento</h6><div class="action-detail"><strong>3a. Analisi vita utile:</strong> Revisione delle aliquote di ammortamento per riflettere meglio la vita utile effettiva degli asset.</div><div class="action-detail"><strong>3b. Capitalizzazione costi sviluppo:</strong> Valutazione opportunità di capitalizzazione costi di sviluppo con utilità pluriennale.</div></div>
+                               <div class="action-item priority-medium"><h6>PRIORITÀ MEDIA: Ottimizzazione Accantonamenti</h6><div class="action-detail"><strong>4a. Revisione fondi:</strong> Analisi dettagliata dei rischi effettivi e ricalcolo degli accantonamenti.</div><div class="action-detail"><strong>4b. Disclosure migliorata:</strong> Potenziamento dell'informativa in nota integrativa sulla continuità aziendale.</div></div>
+                               <div class="row mt-4"><div class="col-md-6"><div class="alert alert-success"><h6>Impatto Stimato:</h6><ul><li>Liberazione liquidità: €642.488</li><li>Riduzione oneri finanziari: €130.000-160.000/anno</li><li>Miglioramento EBIT: +15-22%</li><li>Miglioramento copertura immobilizzazioni: da 0,85 a 0,90-0,95</li></ul></div></div><div class="col-md-6"><div class="alert alert-primary"><h6>Tempistiche:</h6><ul><li>Immediato (0-3m): Revisione politiche contabili</li><li>Breve (3-6m): Gestione crediti/debiti</li><li>Medio (6-12m): Ristrutturazione debito</li></ul></div></div></div>
+                           </div>
+                       </div>
+                   </div>
+
+             </div> <!-- Fine Accordion Principale -->
+
+
+            <!-- Sezione Azioni Prioritarie CDA (Updated for ABBREVIA S.p.A.) -->
+             <section id="actions-summary" class="report-section">
+                  <h4 class="section-title small"><i class="fas fa-tasks me-2"></i>AZIONI PRIORITARIE</h4>
+                  <div class="card actions-card">
+                      <div class="card-body">
+                          <ol class="action-list list-unstyled">
+                              <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                      <div>
+                                          <span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-sync-alt"></i></span>
+                                          <strong>Ottimizzazione capitale circolante</strong>
+                                          <p class="small text-muted mb-0">Implementare gestione attiva dei crediti (riduzione DSO a 90gg) e rinegoziazione termini fornitori (estensione DPO a 55gg) per liberare €642.488 di liquidità.</p>
+                                      </div>
+                                      <span class="priority-badge status-badge bg-warning text-dark">Media Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                           <span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-percentage"></i></span>
+                                           <strong>Ristrutturazione del debito finanziario</strong>
+                                          <p class="small text-muted mb-0">Rinegoziazione del costo del debito (dal 18,28% al 7-10%) e rimodulazione a medio-lungo termine per migliorare la copertura delle immobilizzazioni.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-warning text-dark">Media Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                           <span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-chart-line"></i></span>
+                                           <strong>Revisione politiche di ammortamento</strong>
+                                          <p class="small text-muted mb-0">Affinamento delle aliquote di ammortamento per riflettere meglio la vita utile effettiva degli asset, con potenziale impatto positivo sull'EBIT di €120.000-180.000.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-warning text-dark">Media Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                            <span class="icon-circle icon-circle-sm bg-icon-info me-2"><i class="fas fa-file-alt"></i></span>
+                                            <strong>Potenziamento disclosure in nota integrativa</strong>
+                                           <p class="small text-muted mb-0">Integrazione dell'informativa sulla continuità aziendale, indici di bancabilità e sostenibilità del debito per migliorare la percezione di solidità.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-info text-dark">Bassa Priorità</span>
+                                  </div>
+                              </li>
+                          </ol>
+                      </div>
+                  </div>
+             </section>
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 -->
+        <footer class="footer no-print">
+             <div class="container-fluid px-4"> <div class="row"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2" style="height: 20px; vertical-align: middle;">
+ </div> </div> </div>
+        </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="js/monitor_cda.js"></script>
+    <scan-chat data-bot-id="f50e33b1-2e93-4460-ac96-17200ab5487a"></scan-chat>
+    <script src="./js/bundle.js"></script>
+</body>
+</html>

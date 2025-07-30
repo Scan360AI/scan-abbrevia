@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bancabilità e Sostenibilità Debito - ABBREVIA S.p.A. | SCAN V11</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+     <style>
+        /* Stili IRP V6/V7 */
+        .irp-visual-section { background: linear-gradient(135deg, var(--white) 0%, #f0f4f8 100%); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow); margin-bottom: 2.5rem; border: 1px solid var(--card-border); }
+        .irp-main-title { color: var(--primary); font-weight: 700; margin-bottom: 1.5rem; border-bottom: 2px solid var(--secondary); padding-bottom: 0.8rem; }
+        .irp-gradient-bar-container { margin-bottom: 0.5rem; }
+        .irp-gradient-bar { height: 20px; border-radius: 10px; overflow: hidden; position: relative; background: linear-gradient(to right, #d62246 0%, #d98c00 35%, #ffc107 55%, #4CAF50 80%, #191970 100%); border: 1px solid #bdc3c7; }
+        .irp-marker { position: absolute; top: -5px; bottom: -5px; width: 6px; background-color: #ffffff; border: 2px solid #343a40; transform: translateX(-50%); box-shadow: 0 0 8px rgba(0,0,0,0.5); z-index: 2; border-radius: 3px; }
+        .irp-marker::after { content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 8px solid #343a40; }
+        .irp-scale-labels { font-size: 0.8rem; color: #6c757d; font-weight: 500; padding: 0 5px;}
+        .irp-score-circle { width: 140px; height: 140px; border-radius: 50%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 0.5rem auto; box-shadow: 0 8px 20px rgba(0,0,0,0.25); background: var(--warning); border: 6px solid rgba(255, 255, 255, 0.5); }
+        .irp-score-circle.risk-low { background: radial-gradient(circle, #6bc571, #4CAF50); }
+        .irp-score-circle.risk-medium { background: radial-gradient(circle, #ffd54f, #FFC107); }
+        .irp-score-circle.risk-high { background: radial-gradient(circle, #f6685e, #F44336); }
+        .irp-score-value { font-size: 3.5rem; font-weight: 700; line-height: 1; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);}
+        .irp-score-max { font-size: 0.9rem; opacity: 0.8; display: block; line-height: 1;}
+        .irp-category-text { font-size: 1.2rem; font-weight: 600; margin-top: 0.5rem; text-align: center; }
+        .irp-category-text .status-badge { font-size: 0.85rem; vertical-align: middle; margin-left: 8px;}
+        .other-ratings { font-size: 0.85rem; } .other-ratings strong { color: var(--dark); } .other-ratings .badge { margin-left: 5px; }
+        .stable-badge { background-color: var(--warning); color: var(--dark); border-radius: 8px; padding: 3px 8px; font-weight: 600; font-size: 0.8rem;} /* Adjusted name and color */
+        /* Stili Matching Card */
+        .matching-card { margin-bottom: 1rem; border-left-width: 4px; }
+        .matching-card-header { font-weight: 600; display: flex; align-items: center;}
+        .matching-card-header i { margin-right: 8px;}
+        .matching-card.adequate { border-left-color: var(--warning); }
+        .matching-card.good { border-left-color: var(--success); }
+        .matching-card.optimal { border-left-color: var(--primary); } /* Optimal changed to Primary color */
+        .matching-card.excellent { border-left-color: var(--success); } /* Added Excellent style */
+         /* Altri stili V9/V11 */
+         :root {
+            --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
+            --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
+            --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
+            --text-primary: #212529; --text-secondary: #6c757d;
+            --card-bg: var(--white); --card-border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
+        body { display: flex; }
+        .sidebar { width: 250px; background-color: var(--primary); color: #e0e0e0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1031; display: flex; flex-direction: column; box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: width 0.3s ease; overflow-y: auto; }
+        .main-wrapper { margin-left: 250px; width: calc(100% - 250px); display: flex; flex-direction: column; min-height: 100vh; position: relative; padding-top: 70px; }
+        .dashboard-header { background-color: var(--white); padding: 15px 30px; border-bottom: 1px solid var(--card-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 70px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 250px; right: 0; z-index: 1030; }
+        .dashboard-container { padding: 30px; flex-grow: 1; width: 100%; }
+        .footer { background-color: var(--primary); color: rgba(255, 255, 255, 0.7); padding: 15px 30px; font-size: 0.85rem; margin-top: auto; flex-shrink: 0; width: 100%; }
+        .footer img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; vertical-align: middle;}
+        .sidebar-header { padding: 10px 20px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar-header img { max-height: 40px; } .sidebar-header h5 { color: var(--white); margin-top: 10px; font-size: 1.1rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; } .sidebar-nav .nav-item { margin: 0; }
+        .sidebar-nav .nav-link { color: #e0e0e0; padding: 12px 20px; display: flex; align-items: center; font-size: 0.95rem; font-weight: 500; border-left: 4px solid transparent; transition: all 0.2s ease; }
+        .sidebar-nav .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--white); border-left-color: var(--warning); }
+        .sidebar-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); color: var(--white); font-weight: 600; border-left-color: var(--white); }
+        .sidebar-nav .nav-link i { margin-right: 15px; width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-nav .nav-title { padding: 10px 20px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .sidebar-footer { margin-top: auto; padding: 15px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; text-align: left; }
+        .section-title { color: var(--primary); font-weight: 600; margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--secondary); font-size: 1.75rem; display: flex; align-items: center; } .section-title i { margin-right: 10px; }
+        .dashboard-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s ease; height: 100%; }
+        .dashboard-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .card-title-small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table { border: 1px solid var(--card-border); margin-bottom: 1rem; } .table thead th { background-color: var(--light); color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); font-size: 0.9rem; white-space: nowrap; } .table-hover tbody tr:hover { background-color: #eef2f7; } .table td, .table th { vertical-align: middle; padding: 0.6rem 0.75rem; font-size: 0.9rem;} .value-highlight { font-weight: 600; color: var(--primary); } .text-end { text-align: right !important;} .text-success { color: var(--success) !important; } .text-danger { color: var(--danger) !important; } .text-warning { color: var(--warning) !important; } .text-secondary { color: var(--text-secondary) !important; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid; } .alert-box h5 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;} .alert-box ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem;} .alert-box.alert-success { background-color: #d1e7dd; border-color: #a3cfbb; color: #0a3622; } .alert-box.alert-warning { background-color: #fff3cd; border-color: #ffda6a; color: #664d03; } .alert-box.alert-danger { background-color: #f8d7da; border-color: #f1aeb5; color: #58151c; } .alert-box.alert-info { background-color: #cff4fc; border-color: #9eeaf9; color: #055160; }
+        .status-badge { font-size: .75em; font-weight: 700; line-height: 1; padding: .35em .65em; border-radius: .375rem; color: white; display: inline-block; } .status-badge.bg-success { background-color: var(--success) !important; } .status-badge.bg-warning { background-color: var(--warning) !important; color: var(--dark) !important;} .status-badge.bg-danger { background-color: var(--danger) !important; } .status-badge.bg-info { background-color: var(--info) !important; color: var(--dark) !important;}
+        .chart-container { height: 300px; margin-bottom: 20px; background-color: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        .icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; color: white; margin-right: 12px; font-size: 0.9rem; flex-shrink: 0; }
+        .bg-icon-success { background-color: var(--success); } .bg-icon-warning { background-color: var(--warning); } .bg-icon-danger { background-color: var(--danger); } .bg-icon-info { background-color: #4f6d7a; } .bg-icon-primary { background-color: var(--primary); } .bg-icon-secondary { background-color: var(--secondary); }
+        @media (max-width: 991.98px) { .sidebar { width: 0; border: none; box-shadow: none;} .main-wrapper { margin-left: 0; width: 100%; padding-top: 56px; } .dashboard-header { left: 0; width: 100%; min-height: 56px; padding: 5px 15px;} .header-title h5 { font-size: 1rem;} .header-title p { font-size: 0.75rem;} .dashboard-container { padding: 15px;} .footer { padding: 10px 15px;} }
+        @media print { body { display: block; } .main-wrapper { margin-left: 0; width: 100%; padding-top: 0; } .no-print { display: none !important; } .report-section { page-break-inside: avoid; } }
+     </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>ABBREVIA S.p.A.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante-flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Bancabilità e Sostenibilità Debito</h5>
+                <p class="mb-0">ABBREVIA S.p.A. | <span class="report-date">30 Luglio 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> ABBREVIA S.p.A. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">ABBREVIA S.p.A.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Bancabilità e Sostenibilità Debito | <span class="report-date">30 Luglio 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 4 - V11 CON IRP e SINTESI FUSE - Updated for ABBREVIA S.p.A. -->
+            <!-- ================================================================ -->
+
+            <h2 class="section-title" id="bankability"><i class="fas fa-university me-2"></i>4. BANCABILITÀ E SOSTENIBILITÀ DEL DEBITO</h2>
+
+            <!-- Sezione IRP Prominente -->
+           <section class="irp-visual-section risk-low report-section" id="irp-summary-section">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <h6 class="card-title-small mb-3"><i class="fas fa-shield-alt me-1"></i> Indice Rischio Ponderato</h6>
+                        <div class="irp-score-circle risk-low"> <span class="irp-score-value">85,81</span> <span class="irp-score-max">/ 100</span> </div>
+                        <div class="irp-category-text text-success mt-2"> Rischio Basso <span class="status-badge bg-success">B+</span> </div>
+                        <a href="irp_dettaglio.html" class="btn btn-sm btn-outline-primary mt-3 btn-pill">Vedi Dettaglio IRP</a>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="mb-3 fw-bold" style="color: var(--primary);">Valutazione Generale</h4>
+                        <p class="mb-3">Profilo di rischio <strong>basso con solidità eccellente</strong>. L'azienda presenta un profilo di rischio basso (IRP 85,81 - categoria B+) con una struttura finanziaria complessivamente solida. L'eccellente redditività operativa (EBITDA margin 20,60%) e la resilienza strutturale (Z-Score 3,26) sono supportate da una buona generazione di cassa e da un livello di indebitamento sostenibile.</p>
+                        <a href="#crisis-framework" class="btn btn-success btn-sm mb-3 btn-pill"> <i class="fas fa-check-circle me-1"></i> Profilo di bancabilità solido </a>
+                        <div class="other-ratings border-top pt-3 mt-3">
+                            <h6 class="card-title-small mb-2">Altri Indicatori di Supporto:</h6>
+                            <ul class="list-unstyled mb-0 row gx-3 gy-2">
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-chart-bar"></i></span><strong>Leanus Score:</strong> 3,85 <span class="badge bg-warning ms-1">Discreto</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-success me-2"><i class="fas fa-building"></i></span><strong>Business Cat.:</strong> <span class="stable-badge ms-1">STAR</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-university"></i></span><strong>Rating MCC:</strong> 5,18% <span class="badge bg-warning ms-1">Fascia 4</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-success me-2"><i class="fas fa-calculator"></i></span><strong>Z-Score:</strong> 3,26 <span class="badge bg-success ms-1">Zona di sicurezza</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione 4.1 Valutazione Sintetica della Bancabilità -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.1 Valutazione Sintetica della Bancabilità e Sostenibilità del Debito</h5></div>
+                <div class="card-body">
+                    <p>L'analisi della bancabilità di ABBREVIA S.p.A. mostra un quadro complessivamente <strong>solido</strong> con alcuni elementi di attenzione che richiedono monitoraggio. L'azienda presenta un profilo di bancabilità caratterizzato da una struttura economica eccellente e una struttura finanziaria adeguata.</p>
+                    
+                    <p>La società è classificata nella categoria Leanus® <strong>STAR</strong> - "L'azienda cresce a ritmi elevati e al contempo mantiene un buon equilibrio patrimoniale", con i seguenti indicatori chiave:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Indicatore</th>
+                                    <th class="text-end">Valore</th>
+                                    <th>Valutazione</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Leanus® Score</td>
+                                    <td class="text-end">3,85 ("3 - Discreto")</td>
+                                    <td>Adeguato</td>
+                                </tr>
+                                <tr>
+                                    <td>Probabilità di Default MCC</td>
+                                    <td class="text-end">5,18%</td>
+                                    <td>Fascia "4" - Rischio contenuto</td>
+                                </tr>
+                                <tr>
+                                    <td>Z-Score di Altman</td>
+                                    <td class="text-end">3,26</td>
+                                    <td>Zona di sicurezza</td>
+                                </tr>
+                                <tr>
+                                    <td>Debiti Finanziari</td>
+                                    <td class="text-end">€2.578.009</td>
+                                    <td>Sostenibili</td>
+                                </tr>
+                                <tr>
+                                    <td>PFN</td>
+                                    <td class="text-end">€2.005.628</td>
+                                    <td>Indebitamento netto sostenibile</td>
+                                </tr>
+                                <tr>
+                                    <td>DSCR</td>
+                                    <td class="text-end">17,767</td>
+                                    <td>Eccellente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Punti di forza:</h6>
+                            <ul>
+                                <li>EBITDA in crescita (+23,58% rispetto al periodo precedente)</li>
+                                <li>Eccellente marginalità operativa (EBITDA margin 20,60%)</li>
+                                <li>Solida struttura patrimoniale (Patrimonio Netto €6.600.157)</li>
+                                <li>PFN/EBITDA ottimo (1,00)</li>
+                                <li>DSCR eccellente (17,767)</li>
+                                <li>Cash Flow Operativo positivo (€1.378.364, 14,13% dei ricavi)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Criticità rilevanti:</h6>
+                            <ul>
+                                <li>Oneri finanziari elevati (€249.561, 18,28% dei debiti finanziari medi)</li>
+                                <li>Assenza di debiti finanziari a medio/lungo termine</li>
+                                <li>Copertura immobilizzazioni inferiore a 1 (0,85)</li>
+                                <li>Riduzione della liquidità (-12,1% rispetto al periodo precedente)</li>
+                                <li>Diminuzione dell'utile netto (-39,8% rispetto al periodo precedente)</li>
+                                <li>Tempi di incasso elevati (DSO 110 giorni)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3">La struttura patrimoniale presenta elementi molto positivi: un'eccellente redditività operativa, una solida capacità di generazione di cassa e un indebitamento sostenibile. Tuttavia, la struttura del debito, concentrata sul breve termine, e l'elevato costo degli oneri finanziari rappresentano aree di miglioramento.</p>
+                </div>
+            </div>
+
+            <!-- Sezione Indicatori Sostenibilità Debito -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.2 Indicatori di Sostenibilità del Debito</h5></div>
+                <div class="card-body">
+                    <p>Gli indicatori di sostenibilità del debito presentano valori complessivamente positivi, evidenziando la solidità della struttura finanziaria:</p>
+                    <div class="row">
+                        <div class="col-lg-7 mb-3 mb-lg-0">
+                            <h6>Tabella 4.1: Indicatori Sostenibilità Debito</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">Valore</th><th>Valutazione</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>PFN/EBITDA</td><td class="text-end">1,00</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                        <tr><td>Leva Finanziaria (D/E)</td><td class="text-end">0,39</td><td><span class="status-badge bg-success">Ottima</span></td></tr>
+                                        <tr><td>EBITDA/Oneri Finanziari</td><td class="text-end">8,05</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                        <tr><td>DSCR</td><td class="text-end">17,767</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>Cash Flow Operativo/Debiti Finanziari</td><td class="text-end">53,47%</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>Copertura immobilizzazioni</td><td class="text-end">0,85</td><td><span class="status-badge bg-warning">Da migliorare</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <h6 class="text-center small">Grafico 4.1: Indicatori Sostenibilità (Radar)</h6>
+                            <div class="chart-container" style="height: 300px;"> <canvas id="debtSustainabilityChart"></canvas> </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-4">Interpretazione Indicatori Sostenibilità:</h6>
+                    <ul class="small">
+                        <li>Il rapporto <strong>PFN/EBITDA</strong> di 1,00 si posiziona in una fascia di eccellenza (&lt;1,5x), indicando che l'azienda sarebbe in grado di azzerare la propria posizione finanziaria netta in un anno utilizzando il solo EBITDA.</li>
+                        <li>La <strong>Leva Finanziaria (D/E)</strong> pari a 0,39 evidenzia un ricorso all'indebitamento estremamente contenuto rispetto al capitale proprio, a conferma di una solida struttura patrimoniale.</li>
+                        <li>Il <strong>DSCR</strong> (Debt Service Coverage Ratio) di 17,767 è eccezionalmente superiore alla soglia minima di 1,2, indicando un'eccellente capacità di servire il debito con i flussi operativi.</li>
+                        <li>Il <strong>Cash Flow Operativo</strong> positivo di €1.378.364 (53,47% dei debiti finanziari) evidenzia la capacità dell'azienda di estinguere teoricamente l'intero debito finanziario in meno di due anni con i soli flussi di cassa operativi.</li>
+                        <li>La <strong>Copertura delle immobilizzazioni</strong> di 0,85 rappresenta l'unico elemento di attenzione, indicando una parziale violazione del principio di correlazione temporale fonti-impieghi.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Capacità Indebitamento -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.3 Capacità di Indebitamento Incrementale</h5></div>
+                <div class="card-body">
+                    <p>Secondo l'analisi automatica Leanus, "la capacità teorica di indebitamento incrementale sostenibile è pari a €2.841.000, mentre il fido consigliato a breve termine è pari a €507.000".</p>
+                    <div class="row align-items-center">
+                        <div class="col-md-5 mb-3 mb-md-0 text-center">
+                            <div class="alert-box alert-success p-3">
+                                <div class="icon-circle bg-icon-success mx-auto mb-2"><i class="fas fa-chart-line"></i></div>
+                                <h6 class="mb-1">Capacità Incrementale Significativa:</h6>
+                                <p class="fs-3 fw-bold mb-1">+ € 2.841.000</p>
+                                <p class="small text-muted mb-0">Debito aggiuntivo teorico</p>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h6>Fattori Chiave:</h6>
+                            <div class="row small">
+                                <div class="col-6"><strong>Punti di forza:</strong>
+                                    <ul class="fa-ul ms-3">
+                                        <li><span class="fa-li text-success"><i class="fas fa-check"></i></span>PFN/EBITDA ottimo (1,00)</li>
+                                        <li><span class="fa-li text-success"><i class="fas fa-check"></i></span>DSCR eccellente (17,767)</li>
+                                        <li><span class="fa-li text-success"><i class="fas fa-check"></i></span>Leva finanziaria contenuta (0,39)</li>
+                                        <li><span class="fa-li text-success"><i class="fas fa-check"></i></span>Cash Flow Operativo positivo (14,13% dei ricavi)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6"><strong>Aree di attenzione:</strong>
+                                    <ul class="fa-ul ms-3">
+                                        <li><span class="fa-li text-warning"><i class="fas fa-exclamation"></i></span>Costo del debito elevato (18,28%)</li>
+                                        <li><span class="fa-li text-warning"><i class="fas fa-exclamation"></i></span>Struttura sbilanciata (100% BT)</li>
+                                        <li><span class="fa-li text-warning"><i class="fas fa-exclamation"></i></span>Copertura immobilizzazioni 0,85</li>
+                                        <li><span class="fa-li text-info"><i class="fas fa-info"></i></span>Fido consigliato: €507.000</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="small mt-3">La significativa capacità di indebitamento incrementale riflette l'eccellente profilo finanziario dell'azienda, in particolare la solida capacità di generazione di cassa operativa e il contenuto livello di indebitamento attuale.</p>
+                    <p class="small">Assumendo un rapporto PFN/EBITDA target massimo di 3,0x (prudenziale per il settore servizi), la capacità massima di indebitamento sarebbe di circa €4.022.746, confermando la stima prudenziale di Leanus.</p>
+                </div>
+            </div>
+
+            <!-- DSCR -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.4 DSCR (Debt Service Coverage Ratio)</h5></div>
+                <div class="card-body">
+                    <p>Il DSCR rappresenta un indicatore fondamentale per la valutazione della capacità dell'azienda di far fronte al servizio del debito attraverso i flussi di cassa generati.</p>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Parametro DSCR</th><th class="text-end">Valore</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>DSCR calcolato</td><td class="text-end">17,767</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                <tr><td>Soglia bancaria minima</td><td class="text-end">1,2</td><td>Ampiamente superata</td></tr>
+                                <tr><td>Margine di sicurezza</td><td class="text-end">+1.380,6%</td><td>Eccezionale</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert-box alert-success">
+                        <h5>Analisi DSCR:</h5>
+                        <p>Il valore del DSCR pari a 17,767 è eccezionalmente superiore ai criteri di accettazione da parte del sistema bancario.</p>
+                        <p>Questo risultato, basato sull'ipotesi di rimborso dei debiti finanziari in 3 anni, indica che l'azienda genera flussi di cassa operativi quasi 18 volte superiori a quelli necessari per il servizio del debito.</p>
+                    </div>
+                    <p>Implicazioni per la bancabilità:</p>
+                    <ul>
+                        <li><strong>Rating creditizio potenziale:</strong> Eccellente</li>
+                        <li><strong>Accesso al credito:</strong> Ampio con condizioni favorevoli</li>
+                        <li><strong>Margine di sicurezza:</strong> Eccezionale</li>
+                        <li><strong>Resilienza a stress:</strong> Elevata</li>
+                    </ul>
+                    <p>Anche in scenari di significativo stress (riduzione del 70% del cash flow operativo), l'azienda manterrebbe un DSCR di 5,33, significativamente superiore alla soglia minima di 1,2, confermando la solidità della struttura finanziaria e la capacità di resistere a shock esterni significativi.</p>
+                </div>
+            </div>
+
+            <!-- PFN/EBITDA -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.5 Matching Finanziario</h5></div>
+                <div class="card-body">
+                    <p>L'analisi del matching finanziario secondo i quattro principi fondamentali definiti nel Manuale Kitzanos evidenzia un quadro complessivamente positivo nella struttura finanziaria di ABBREVIA S.p.A., con alcune aree di miglioramento.</p>
+                    
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card excellent h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-coins text-success"></i> Cash Flow Matching</h6>
+                                <p class="small mb-1">Il principio del Cash Flow Matching valuta l'allineamento tra il servizio del debito e la capacità di generazione di cassa:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Cash Flow Operativo:</strong> €1.378.364</li>
+                                    <li><strong>DSCR:</strong> 17,767</li>
+                                    <li><strong>Cash Flow Operativo/Ricavi:</strong> 14,13%</li>
+                                </ul>
+                                <p class="small">Il Cash Flow Matching risulta <strong>eccellente</strong>, con un Cash Flow Operativo significativamente positivo e un DSCR eccezionalmente superiore al threshold minimo di 1,2.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-success">Eccellente</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-layer-group text-warning"></i> Amounts Matching</h6>
+                                <p class="small mb-1">Il principio dell'Amounts Matching verifica che il debito a lungo termine non superi l'ammontare degli investimenti a lungo termine:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Attivo Fisso Netto:</strong> €7.783.314</li>
+                                    <li><strong>Debiti Finanziari MLT:</strong> €0</li>
+                                    <li><strong>Rapporto:</strong> 0,00</li>
+                                </ul>
+                                <p class="small">L'Amounts Matching risulta <strong>da migliorare</strong>, con un'assenza di debiti a medio-lungo termine a fronte di significativi investimenti in attivo fisso.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Da migliorare</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-hourglass-half text-warning"></i> Duration Matching</h6>
+                                <p class="small mb-1">Il principio del Duration Matching valuta l'allineamento tra la durata del finanziamento e la vita utile dell'attivo finanziato:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Immobilizzazioni materiali:</strong> €62.651</li>
+                                    <li><strong>Immobilizzazioni immateriali:</strong> €7.594.208</li>
+                                    <li><strong>Debiti a breve termine:</strong> 100% del totale</li>
+                                </ul>
+                                <p class="small">La concentrazione del debito sul breve termine a fronte di significativi investimenti in asset a lungo termine suggerisce una mancata conformità al principio del Duration Matching.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Da migliorare</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-gem text-warning"></i> Quality Matching</h6>
+                                <p class="small mb-1">Il principio del Quality Matching valuta l'appropriatezza della forma tecnica del finanziamento:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Debiti BT:</strong> 100% del totale</li>
+                                    <li><strong>Costo del debito:</strong> 18,28%</li>
+                                    <li><strong>Natura investimenti:</strong> Prevalentemente immateriali (97,6%)</li>
+                                </ul>
+                                <p class="small">L'elevato costo del debito e la concentrazione sul breve termine suggeriscono forme di finanziamento non ottimali rispetto alla natura degli investimenti effettuati.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Subottimale</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analisi della Capacità di Indebitamento Sostenibile -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.6 Analisi della Capacità di Indebitamento Sostenibile</h5></div>
+                <div class="card-body">
+                    <p>La capacità di indebitamento sostenibile di ABBREVIA S.p.A. può essere valutata attraverso l'analisi congiunta di più indicatori:</p>
+                    
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Parametro</th>
+                                    <th class="text-end">Valore Attuale</th>
+                                    <th>Valutazione</th>
+                                    <th>Capacità incrementale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DSCR</td>
+                                    <td class="text-end">17,767</td>
+                                    <td>Eccellente</td>
+                                    <td>Elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>PFN/EBITDA</td>
+                                    <td class="text-end">1,00</td>
+                                    <td>Ottimo</td>
+                                    <td>Elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>D/E</td>
+                                    <td class="text-end">0,39</td>
+                                    <td>Ottimo</td>
+                                    <td>Elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>Cash Flow Operativo</td>
+                                    <td class="text-end">€1.378.364</td>
+                                    <td>Positivo</td>
+                                    <td>Elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>Liquidità/Ricavi</td>
+                                    <td class="text-end">5,87%</td>
+                                    <td>Adeguata</td>
+                                    <td>Moderata</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>Analisi prospettica secondo Business Plan Inerziale:</h6>
+                    <p>Il piano prevede un miglioramento progressivo che porterebbe l'azienda da una PFN positiva di €2.005.628 a una PFN negativa di €5.330.000 nell'arco di quattro anni:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Periodo</th><th class="text-end">PFN prevista</th><th class="text-end">PFN/EBITDA</th><th>Trend</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>12/2024</td><td class="text-end">€2.005.628</td><td class="text-end">1,00</td><td>Attuale</td></tr>
+                                <tr><td>12/2025</td><td class="text-end">-€1.665.000</td><td class="text-end">-0,77</td><td>Cassa netta</td></tr>
+                                <tr><td>12/2026</td><td class="text-end">-€5.330.000</td><td class="text-end">-2,29</td><td>Forte surplus di liquidità</td></tr>
+                                <tr><td>12/2027</td><td class="text-end">-€8.995.000</td><td class="text-end">-3,81</td><td>Ulteriore miglioramento</td></tr>
+                                <tr><td>12/2028</td><td class="text-end">-€12.660.000</td><td class="text-end">-5,33</td><td>Consolidamento</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="small mt-3">Le proiezioni evidenziano un progressivo miglioramento della posizione finanziaria, con la generazione di una significativa cassa netta e un conseguente incremento della capacità di assunzione di nuovo debito. Questo scenario conferma l'elevata bancabilità di ABBREVIA S.p.A. nel medio periodo.</p>
+                </div>
+            </div>
+
+            <!-- KPI Crisi -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.7 KPI della Crisi d'Impresa (CCII)</h5></div>
+                <div class="card-body">
+                    <p>In riferimento agli indicatori della crisi d'impresa definiti dal Codice della Crisi d'Impresa e dell'Insolvenza (CCII), l'azienda mostra una <strong>parziale conformità</strong> (50%) con "3 su 6 indicatori in linea".</p>
+                    
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Indicatore CCII</th><th class="text-end">Valore</th><th>Soglia di Allarme</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Oneri Finanziari/Ricavi</td><td class="text-end">2,56%</td><td class="text-end">&gt; 1,5%</td><td><span class="status-badge bg-warning">Attenzione</span></td></tr>
+                                <tr><td>Patrimonio Netto/Debiti Totali</td><td class="text-end">139,14%</td><td class="text-end">&lt; 4,2%</td><td><span class="status-badge bg-success">Ampiamente in linea ✓</span></td></tr>
+                                <tr><td>Attività a Breve/Passività a Breve</td><td class="text-end">138,85%</td><td class="text-end">&lt; 79,8%</td><td><span class="status-badge bg-success">In linea ✓</span></td></tr>
+                                <tr><td>Cash Flow/Totale Attivo</td><td class="text-end">11,94%</td><td class="text-end">&lt; 1,7%</td><td><span class="status-badge bg-success">Ampiamente in linea ✓</span></td></tr>
+                                <tr><td>Z-Score di Altman</td><td class="text-end">3,26</td><td class="text-end">&lt; 1,8</td><td><span class="status-badge bg-success">Zona sicura</span></td></tr>
+                                <tr><td>Probabilità di Default MCC</td><td class="text-end">5,18%</td><td class="text-end">-</td><td><span class="status-badge bg-warning">Fascia 4</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert-box alert-warning">
+                        <h5>Risultato complessivo: 3/6 indicatori in linea</h5>
+                        <p>L'azienda presenta una parziale conformità agli indicatori della crisi, con un potenziale punto di attenzione nell'incidenza degli oneri finanziari sui ricavi (2,56%), che supera la soglia di allarme settoriale (1,5%). Questo indicatore, pur non essendo critico in senso assoluto, merita un monitoraggio costante, soprattutto alla luce dell'elevato costo medio del debito (18,28%).</p>
+                    </div>
+                    <p>Il report Leanus evidenzia alcuni punti di attenzione per ABBREVIA S.p.A.:</p>
+                    <ol>
+                        <li>Il peggioramento dello score Leanus (da "2 - Buono" a "3 - Discreto")</li>
+                        <li>La riduzione della liquidità (-12,1% rispetto al periodo precedente)</li>
+                        <li>L'elevato costo degli oneri finanziari (18,28% dei debiti finanziari medi)</li>
+                        <li>Il significativo incremento dell'indebitamento (+1.592,86%)</li>
+                    </ol>
+                    <p>Questi elementi, pur non configurando un quadro di rischio significativo, suggeriscono l'opportunità di implementare un sistema strutturato di monitoraggio degli indicatori di bancabilità e sostenibilità del debito, al fine di prevenire potenziali criticità future.</p>
+                </div>
+            </div>
+
+            <!-- Raccomandazioni -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.8 Raccomandazioni per la Strategia Finanziaria</h5></div>
+                <div class="card-body">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Situazione Attuale</th><th>Azione Suggerita</th><th>Effetti Previsti</th><th>Impatto Quantitativo</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oneri finanziari elevati (18,28% dei debiti)</td>
+                                    <td>Rinegoziazione delle condizioni di finanziamento</td>
+                                    <td>Riduzione del costo medio del debito</td>
+                                    <td>Risparmio potenziale: €100.000-150.000/anno</td>
+                                </tr>
+                                <tr>
+                                    <td>Assenza di debiti a MLT</td>
+                                    <td>Rimodulazione con focus su M/L termine</td>
+                                    <td>Miglioramento matching temporale fonti-impieghi</td>
+                                    <td>Costo rifinanziamento: €30.000-50.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Liquidità: €572.381 (5,87% dei ricavi)</td>
+                                    <td>Implementazione di sistema di cash pooling e treasury management</td>
+                                    <td>Ottimizzazione rendimento liquidità</td>
+                                    <td>Costo implementazione: €15.000-25.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Copertura immobilizzazioni: 0,85</td>
+                                    <td>Piano di rafforzamento patrimoniale</td>
+                                    <td>Miglioramento equilibrio strutturale</td>
+                                    <td>Impatto su PN: +€500.000-1.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Ciclo del circolante: 61 giorni</td>
+                                    <td>Ottimizzazione tempi di incasso</td>
+                                    <td>Riduzione fabbisogno finanziario</td>
+                                    <td>Liberazione CCN: €400.000-600.000</td>
+                                </tr>
+                                <tr>
+                                    <td>3/6 indicatori CCII in linea</td>
+                                    <td>Implementazione dashboard di monitoraggio</td>
+                                    <td>Prevenzione segnali di allerta</td>
+                                    <td>Costo implementazione: €20.000-40.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>Raccomandazioni prioritarie</h6>
+                    
+                    <ol>
+                        <li><strong>Ottimizzazione del costo del debito</strong>: L'elevata incidenza degli oneri finanziari sul debito (18,28%) suggerisce l'opportunità di rinegoziare le condizioni di finanziamento, potenzialmente riducendo significativamente il costo del capitale di terzi.</li>
+                        <li><strong>Riequilibrio della struttura finanziaria</strong>: Migliorare il rapporto tra indebitamento a breve e a medio-lungo termine, allineandolo alla natura degli investimenti effettuati, con particolare attenzione al principio di correlazione fonti-impieghi.</li>
+                        <li><strong>Piano di ottimizzazione del capitale circolante</strong>: Ridurre i tempi medi di incasso (attualmente 110 giorni) attraverso politiche commerciali più efficaci e l'implementazione di strumenti di gestione del credito avanzati.</li>
+                        <li><strong>Rafforzamento della copertura dell'attivo fisso</strong>: Incrementare il coefficiente di copertura delle immobilizzazioni (attualmente 0,85) attraverso un piano di rafforzamento patrimoniale o la rimodulazione del debito a breve in favore di forme a medio-lungo termine.</li>
+                        <li><strong>Sistema strutturato di monitoraggio</strong>: Implementare un dashboard di controllo con monitoraggio periodico dei principali indicatori di sostenibilità del debito e degli indicatori della crisi secondo il CCII, per anticipare eventuali segnali di deterioramento.</li>
+                    </ol>
+                    
+                    <p class="mt-3"><strong>Conclusione:</strong> ABBREVIA S.p.A. presenta un profilo di bancabilità complessivamente solido caratterizzato da un'eccellente redditività operativa e una buona capacità di generazione di cassa. Le aree di miglioramento identificate (costo del debito, copertura dell'attivo fisso, ciclo del circolante) rappresentano opportunità per ottimizzare ulteriormente la struttura finanziaria e rafforzare la già solida bancabilità dell'azienda, consentendole di accedere a nuove risorse finanziarie per supportare i futuri piani di sviluppo a condizioni vantaggiose.</p>
+                    <p>L'indice di rischio ponderato (IRP) di 85,81/100, che colloca l'azienda nella classe di rischio BASSO (B+), conferma il positivo profilo creditizio di ABBREVIA S.p.A. e la sua elevata capacità di accesso al credito.</p>
+                </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 4 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Corretto) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/charts_config.js"></script>
+    <script src="../js/report_init.js"></script>
+     <script>
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
+
+         // Script aggiornamento badge IRP header
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 85.81; // IRP Score value
+             let irpBadgeClass = 'bg-success';
+             let irpCategory = 'B+';
+             
+             if (irpScoreValue >= 90) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'A';
+             } else if (irpScoreValue >= 80) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'B+';
+             } else if (irpScoreValue >= 75) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'B';
+             } else if (irpScoreValue >= 60) {
+                 irpBadgeClass = 'bg-warning';
+                 irpCategory = 'C';
+             } else if (irpScoreValue >= 45) {
+                 irpBadgeClass = 'bg-danger';
+                 irpCategory = 'D';
+             } else {
+                 irpBadgeClass = 'bg-danger';
+                 irpCategory = 'E';
+             }
+             
+             document.getElementById('irp-header-badge').className = `badge ${irpBadgeClass} me-3`;
+             document.getElementById('irp-header-badge').innerHTML = `<i class="fas fa-shield-alt me-1"></i> IRP: ${irpScoreValue} (${irpCategory})`;
+         });
+
+        // Chart per sostenibilità debito
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('debtSustainabilityChart').getContext('2d');
+            const debtSustainabilityChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['PFN/EBITDA', 'Leva (D/E)', 'DSCR', 'Autonomia', 'Liquidità', 'CFO/Ricavi'],
+                    datasets: [{
+                        label: '2023',
+                        data: [80, 85, 75, 80, 70, 75],
+                        borderColor: 'rgba(54, 162, 235, 0.8)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2
+                    }, {
+                        label: '2024',
+                        data: [95, 90, 98, 85, 65, 85],
+                        borderColor: 'rgba(75, 192, 192, 0.8)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            beginAtZero: true,
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+
+        function printDocument() {
+            window.print();
+        }
+
+        function logout() {
+            window.location.href = "../index.html";
+        }
+     </script>
+<scan-chat data-bot-id="f50e33b1-2e93-4460-ac96-17200ab5487a"></scan-chat>
+<script src="../js/bundle.js"></script>
+</body>
+</html>

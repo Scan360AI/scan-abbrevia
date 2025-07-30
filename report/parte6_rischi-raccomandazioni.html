@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Rischi e Raccomandazioni - ABBREVIA S.p.A. | SCAN V17 - No Charts</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+    <style>
+        /* Stili V17 */
+         .timeline-irp { list-style: none; padding-left: 0; position: relative; }
+        .timeline-irp::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background-color: var(--secondary); }
+        .timeline-irp-item { position: relative; margin-bottom: 1.5rem; padding-left: 45px; }
+        .timeline-irp-badge { position: absolute; left: 0; top: 0; width: 38px; height: 38px; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.2); font-size: 0.75rem;}
+        .timeline-irp-badge.priority-high { background-color: var(--danger); }
+        .timeline-irp-badge.priority-medium { background-color: var(--warning); }
+        .timeline-irp-badge.priority-low { background-color: var(--success); }
+        .timeline-irp-content { background-color: var(--white); padding: 1rem; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: var(--shadow); }
+        .timeline-irp-content h6 { color: var(--primary); margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 1rem;}
+        .timeline-irp-content ul { margin-bottom: 0; padding-left: 1.2rem; font-size: 0.85rem; }
+        .kpi-target-table td, .kpi-target-table th { font-size: 0.8rem; padding: 0.4rem 0.5rem;}
+        .kpi-target-table .current-value { color: var(--text-secondary); font-style: italic; display: block; font-size: 0.75rem;}
+        .kpi-target-table .target-value { font-weight: bold; }
+         .kpi-target-table .value-ok { color: var(--success); }
+         .kpi-target-table .value-warn { color: var(--warning); }
+         .kpi-target-table .value-crit { color: var(--danger); }
+        .revision-section .list-group-item { background-color: transparent; border: none; padding: 0.5rem 0; display: flex; align-items: center; font-size: 0.9rem;}
+        .revision-section .list-group-item i { width: 20px; text-align: center; margin-right: 10px; color: var(--primary); }
+        .alerting-section .alert { padding: 0.75rem 1rem; margin-bottom: 0.5rem; font-size: 0.85rem; display: flex; align-items: center;}
+        .alerting-section .alert i { margin-right: 8px; }
+        .alert.alert-liquidita, .alert.alert-circolante { border-left: 4px solid var(--danger) !important; background-color: #f8d7da !important;}
+        .alert.alert-covenant, .alert.alert-be, .alert.alert-costi { border-left: 4px solid var(--warning) !important; background-color: #fff3cd !important;}
+         .accordion-button i { margin-right: 10px; }
+         #headingCirc button i { color: var(--danger); }
+         #headingFin button i { color: var(--warning); }
+         #headingOp button i { color: var(--warning); }
+          :root {
+            --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
+            --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
+            --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
+            --text-primary: #212529; --text-secondary: #6c757d;
+            --card-bg: var(--white); --card-border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
+        body { display: flex; }
+        .sidebar { width: 250px; background-color: var(--primary); color: #e0e0e0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1031; display: flex; flex-direction: column; box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: width 0.3s ease; overflow-y: auto; }
+        .main-wrapper { margin-left: 250px; width: calc(100% - 250px); display: flex; flex-direction: column; min-height: 100vh; position: relative; padding-top: 70px; }
+        .dashboard-header { background-color: var(--white); padding: 15px 30px; border-bottom: 1px solid var(--card-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 70px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 250px; right: 0; z-index: 1030; }
+        .dashboard-container { padding: 30px; flex-grow: 1; width: 100%; }
+        .footer { background-color: var(--primary); color: rgba(255, 255, 255, 0.7); padding: 15px 30px; font-size: 0.85rem; margin-top: auto; flex-shrink: 0; width: 100%; }
+        .footer img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; vertical-align: middle;}
+        .sidebar-header { padding: 10px 20px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar-header img { max-height: 40px; } .sidebar-header h5 { color: var(--white); margin-top: 10px; font-size: 1.1rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; } .sidebar-nav .nav-item { margin: 0; }
+        .sidebar-nav .nav-link { color: #e0e0e0; padding: 12px 20px; display: flex; align-items: center; font-size: 0.95rem; font-weight: 500; border-left: 4px solid transparent; transition: all 0.2s ease; }
+        .sidebar-nav .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--white); border-left-color: var(--warning); }
+        .sidebar-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); color: var(--white); font-weight: 600; border-left-color: var(--white); }
+        .sidebar-nav .nav-link i { margin-right: 15px; width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-nav .nav-title { padding: 10px 20px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .sidebar-footer { margin-top: auto; padding: 15px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; text-align: left; }
+        .section-title { color: var(--primary); font-weight: 600; margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--secondary); font-size: 1.75rem; display: flex; align-items: center; } .section-title i { margin-right: 10px; }
+        .dashboard-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s ease; height: 100%; }
+        .dashboard-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .card-title-small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table { border: 1px solid var(--card-border); margin-bottom: 1rem; } .table thead th { background-color: var(--light); color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); font-size: 0.9rem; white-space: nowrap; } .table-hover tbody tr:hover { background-color: #eef2f7; } .table td, .table th { vertical-align: middle; padding: 0.6rem 0.75rem; font-size: 0.9rem;} .value-highlight { font-weight: 600; color: var(--primary); } .text-end { text-align: right !important;} .text-success { color: var(--success) !important; } .text-danger { color: var(--danger) !important; } .text-warning { color: var(--warning) !important; } .text-secondary { color: var(--text-secondary) !important; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid; } .alert-box h5 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;} .alert-box ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem;} .alert-box.alert-success { background-color: #d1e7dd; border-color: #a3cfbb; color: #0a3622; } .alert-box.alert-warning { background-color: #fff3cd; border-color: #ffda6a; color: #664d03; } .alert-box.alert-danger { background-color: #f8d7da; border-color: #f1aeb5; color: #58151c; } .alert-box.alert-info { background-color: #cff4fc; border-color: #9eeaf9; color: #055160; }
+        .status-badge { font-size: .75em; font-weight: 700; line-height: 1; padding: .35em .65em; border-radius: .375rem; color: white; display: inline-block; } .status-badge.bg-success { background-color: var(--success) !important; } .status-badge.bg-warning { background-color: var(--warning) !important; color: var(--dark) !important;} .status-badge.bg-danger { background-color: var(--danger) !important; } .status-badge.bg-info { background-color: var(--info) !important; color: var(--dark) !important;}
+        .chart-container { height: 300px; margin-bottom: 20px; background-color: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        .icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; color: white; margin-right: 12px; font-size: 0.9rem; flex-shrink: 0; }
+        .bg-icon-success { background-color: var(--success); } .bg-icon-warning { background-color: var(--warning); } .bg-icon-danger { background-color: var(--danger); } .bg-icon-info { background-color: #4f6d7a; } .bg-icon-primary { background-color: var(--primary); } .bg-icon-secondary { background-color: var(--secondary); }
+        .action-table td:nth-child(1) { width: 30%; white-space: nowrap; } .action-table td:nth-child(2) { width: 40%; } .action-table td:nth-child(3) { width: 20%; } .action-table td:nth-child(4) { width: 10%; text-align: center;}
+         @media (max-width: 991.98px) { .sidebar { width: 0; border: none; box-shadow: none;} .main-wrapper { margin-left: 0; width: 100%; padding-top: 56px; } .dashboard-header { left: 0; width: 100%; min-height: 56px; padding: 5px 15px;} .header-title h5 { font-size: 1rem;} .header-title p { font-size: 0.75rem;} .dashboard-container { padding: 15px;} .footer { padding: 10px 15px;} }
+         @media print { body { display: block; } .main-wrapper { margin-left: 0; width: 100%; padding-top: 0; } .no-print { display: none !important; } .report-section { page-break-inside: avoid; } }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+
+     <!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>ABBREVIA S.p.A.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante_flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Analisi Rischi e Raccomandazioni</h5>
+                <p class="mb-0">ABBREVIA S.p.A. | <span class="report-date">30 Luglio 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span>
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> ABBREVIA S.p.A. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">ABBREVIA S.p.A.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Analisi Rischi e Raccomandazioni | <span class="report-date">30 Luglio 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 6 - V17 - Updated for ABBREVIA S.p.A. - NO CHARTS -->
+            <!-- ================================================================ -->
+
+             <h2 class="section-title" id="risk-analysis"><i class="fas fa-exclamation-triangle me-2"></i>6. ANALISI DEI RISCHI</h2>
+
+            <!-- Sezioni 6.1 a 6.5 presentate in card standard -->
+            <div class="card mb-4 report-section">
+                <div class="card-header card-header-primary"><h5 class="mb-0">6.1 Indicatori di Rischio</h5></div>
+                <div class="card-body">
+                    <p>L'analisi dei principali indicatori di rischio di ABBREVIA SPA evidenzia un profilo complessivamente positivo con alcune aree di attenzione:</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-hover" id="table_6_1_1">
+                           <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">12/2022</th><th class="text-end">12/2023</th><th class="text-end">12/2024</th><th>Trend</th><th>Valutazione</th></tr></thead>
+                           <tbody>
+                               <tr><td>Variazione Ricavi</td><td class="text-end">N/D</td><td class="text-end">+15,96%</td><td class="text-end">+7,46%</td><td>↗</td><td class="text-success">In crescita</td></tr>
+                               <tr><td>EBITDA Margin</td><td class="text-end">19,1%</td><td class="text-end">17,9%</td><td class="text-end">20,60%</td><td>↗</td><td class="text-success">Eccellente</td></tr>
+                               <tr><td>PFN/EBITDA</td><td class="text-end">N/D</td><td class="text-end">N/D</td><td class="text-end">1,00</td><td>→</td><td class="text-success">Sostenibile</td></tr>
+                               <tr><td>Leva Finanziaria (D/E)</td><td class="text-end">0,18</td><td class="text-end">0,08</td><td class="text-end">0,39</td><td>↗</td><td class="text-success">Ottima</td></tr>
+                               <tr><td>Liquidità/Ricavi</td><td class="text-end">12,11%</td><td class="text-end">7,17%</td><td class="text-end">5,87%</td><td>↘</td><td class="text-warning">In diminuzione</td></tr>
+                               <tr><td>Cash Flow Operativo/Ricavi</td><td class="text-end">9,5%</td><td class="text-end">14,9%</td><td class="text-end">14,13%</td><td>→</td><td class="text-success">Ottimo</td></tr>
+                               <tr><td>Equilibrio del circolante (giorni)</td><td class="text-end">53</td><td class="text-end">75</td><td class="text-end">61</td><td>↘</td><td class="text-warning">Da monitorare</td></tr>
+                               <tr><td>DSO (giorni crediti clienti)</td><td class="text-end">97</td><td class="text-end">109</td><td class="text-end">110</td><td>↗</td><td class="text-warning">Elevato</td></tr>
+                               <tr><td>DPO (giorni debiti fornitori)</td><td class="text-end">44</td><td class="text-end">34</td><td class="text-end">49</td><td>↗</td><td class="text-success">In miglioramento</td></tr>
+                               <tr><td>DIO (giorni magazzino)</td><td class="text-end">0</td><td class="text-end">0</td><td class="text-end">0</td><td>→</td><td class="text-success">Ottimale</td></tr>
+                           </tbody>
+                        </table>
+                    </div>
+                    <p class="small mt-3">Si evidenzia un'eccellente performance economica con crescita significativa del fatturato (+7,46%) e dell'EBITDA (+23,58%), con valori assoluti molto positivi (EBITDA margin al 20,60%). L'area di maggiore attenzione è rappresentata dalla gestione dei crediti commerciali, con DSO (Days Sales Outstanding) pari a 110 giorni, che potrebbe indicare potenziali criticità nell'incasso o politiche commerciali particolarmente elastiche.</p>
+                </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                <div class="card-header card-header-secondary"><h5 class="mb-0">6.2 Z-Score e Rating</h5></div>
+                 <div class="card-body">
+                     <!-- Rimossa row, la tabella occupa tutta la larghezza -->
+                     <div class="small">
+                         <h6>Tabella 6.2.1: Z-Score e rating</h6>
+                         <div class="table-responsive">
+                             <table class="table table-sm table-striped">
+                                 <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">Valore</th><th>Interpretazione</th></tr></thead>
+                                 <tbody>
+                                     <tr><td>Z-Score di Altman</td><td class="text-end value-highlight">3,26</td><td><span class="badge bg-success">Zona sicura (bassa probabilità di default)</span></td></tr>
+                                     <tr><td>Probabilità di Default (MCC)</td><td class="text-end value-highlight">5,18%</td><td><span class="badge bg-warning text-dark">Rischio moderato</span></td></tr>
+                                     <tr><td>Classe di Valutazione MCC</td><td class="text-end value-highlight">F8</td><td><span class="badge bg-warning text-dark">Adeguata (F1 = Max)</span></td></tr>
+                                     <tr><td>Rating Fondo di Garanzia MCC</td><td class="text-end value-highlight">FASCIA "4"</td><td><span class="badge bg-warning text-dark">Rischio medio</span></td></tr>
+                                     <tr><td>Leanus Score</td><td class="text-end value-highlight">3,85</td><td><span class="badge bg-warning text-dark">"3 - Discreto" (in monitoraggio)</span></td></tr>
+                                     <tr><td>IRP (Indice di Rischio Ponderato)</td><td class="text-end value-highlight">85,81/100</td><td><span class="badge bg-success">Classe di Rischio BASSO (B+)</span></td></tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                         <hr>
+                         <h6>Interpretazione</h6>
+                         <p>L'analisi evidenzia un profilo di rischio complessivamente contenuto. Lo Z-Score di Altman (3,26) si posiziona nella "zona sicura" dell'intervallo predittivo (>2,99), indicando una bassa probabilità di default nei prossimi 12-24 mesi. Tuttavia, la Probabilità di Default secondo il modello MCC (5,18%) e il posizionamento in FASCIA "4" del rating MCC segnalano un livello di rischio moderato che richiede monitoraggio periodico.</p>
+                         <p>Il Leanus Score di 3,85 (su scala -40/+40), categorizzato come "3 - Discreto", conferma un profilo di rischio adeguato ma in fase di monitoraggio. L'Indice di Rischio Ponderato (IRP) di 85,81/100, elaborato secondo il framework metodologico Kitzanos, colloca l'azienda nella classe di rischio BASSO (B+), evidenziando una solida struttura economico-finanziaria.</p>
+                     </div>
+                 </div>
+             </div>
+
+            <div class="card mb-4 report-section">
+                 <div class="card-header card-header-primary"><h5 class="mb-0">6.3 Red Flags e Segnali d'Allarme</h5></div>
+                  <div class="card-body">
+                      <h6>Tabella 6.3.1: Principali Red Flags identificate</h6>
+                      <div class="table-responsive">
+                          <table class="table table-sm table-hover small">
+                             <thead class="table-light"><tr><th>Area</th><th>Segnale di allarme</th><th>Valore/Trend</th><th>Rischio potenziale</th></tr></thead>
+                              <tbody>
+                                  <tr><td>Crediti commerciali</td><td>DSO elevato</td><td>110 giorni</td><td>Possibile criticità negli incassi</td></tr>
+                                  <tr><td>Struttura patrimoniale</td><td>Copertura immobilizzazioni</td><td>0,85</td><td>Squilibrio fonti-impieghi</td></tr>
+                                  <tr><td>Finanziaria</td><td>Oneri finanziari elevati</td><td>18,28%</td><td>Costo del debito significativo</td></tr>
+                                  <tr><td>Liquidità</td><td>Riduzione cassa</td><td>-12,1%</td><td>Potenziale tensione finanziaria</td></tr>
+                                  <tr><td>Investimenti</td><td>Cash flow investimenti</td><td>-1.216,5%</td><td>Significativi investimenti</td></tr>
+                                  <tr><td>Finanziamenti</td><td>Cash flow finanziamento</td><td>+992,7%</td><td>Dipendenza da nuova finanza</td></tr>
+                                  <tr><td>Capitale sociale</td><td>Disallineamento</td><td>26,89%</td><td>Potenziali problemi amministrativi</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      <p class="mt-3 small">In particolare, l'elevato costo degli oneri finanziari (18,28% dei debiti finanziari medi) rappresenta un elemento di attenzione significativo, così come la copertura delle immobilizzazioni (0,85) che evidenzia una moderata violazione del principio di correlazione temporale fonti-impieghi. Anche l'elevato DSO (110 giorni) e la riduzione della liquidità (-12,1%) rappresentano elementi da monitorare attentamente.</p>
+                  </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">6.4 Analisi di Potenziali Manipolazioni Contabili</h5></div>
+                 <div class="card-body small">
+                     <p>Sulla base del framework Kitzanos, sono stati analizzati i potenziali indicatori di manipolazioni contabili:</p>
+                     <h6>Tabella 6.4.1: Indicatori di potenziali manipolazioni contabili</h6>
+                     <table class="table table-sm">
+                         <thead class="table-light"><tr><th>Test</th><th>Indicatori</th><th>Valutazione</th><th>Note</th></tr></thead>
+                          <tbody>
+                              <tr><td>Sales Profitability</td><td>- Fatturato: +7,46%<br>- EBITDA: +23,58%<br>- Rimanenze: 0</td><td class="text-left">✓ Coerente</td><td>Coerenza tra crescita fatturato e marginalità</td></tr>
+                              <tr><td>Tax Effect</td><td>- Oneri finanziari: 18,28% dei debiti<br>- PFN: 1,00× EBITDA<br>- Posizione Tributaria: -16.272 €</td><td class="text-left">✓ Coerente</td><td>Posizione tributaria in linea con l'operatività</td></tr>
+                              <tr><td>Capitalism Test</td><td>- Investimenti: significativi<br>- Cash Flow Operativo: +211,7%<br>- Cash Flow Investimenti: -1.216,5%</td><td class="text-left">⚠️ Attenzione</td><td>Significativi investimenti da monitorare</td></tr>
+                          </tbody>
+                     </table>
+                     <p><strong>Considerazioni:</strong> L'analisi non evidenzia anomalie significative nella rappresentazione contabile. La coerenza tra crescita del fatturato (+7,46%) e incremento della marginalità (EBITDA +23,58%) indica un'autentica crescita operativa piuttosto che manipolazioni contabili. Tuttavia, l'elevato volume di investimenti (Cash Flow Investimenti -1.216,5%) merita un approfondimento per verificare la natura e il potenziale ritorno degli investimenti effettuati.</p>
+                 </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">6.5 Analisi di Sensitività</h5></div>
+                 <div class="card-body">
+                     <!-- Rimossa row, la tabella occupa tutta la larghezza -->
+                     <div class="small">
+                         <h6>Tabella 6.5.1: Analisi di sensitività</h6>
+                         <div class="table-responsive">
+                              <table class="table table-sm table-striped">
+                                 <thead class="table-light"><tr><th>Parametro</th><th>Valore critico</th><th>Interpretazione</th></tr></thead>
+                                 <tbody>
+                                     <tr><td>Variazione Ricavi che azzera l'EBIT</td><td class="">-20,69%</td><td class="text-success">Buona resilienza a cali di fatturato</td></tr>
+                                     <tr><td>Variazione Costi Fissi che rende l'EBIT = 0</td><td class="">+42,53%</td><td class="text-success">Ottima capacità di assorbire aumenti di costi fissi</td></tr>
+                                     <tr><td>Variazione Crediti Clienti che azzera la Liquidità (gg)</td><td class="">+22</td><td class="text-warning">Moderata sensibilità a ritardi negli incassi</td></tr>
+                                     <tr><td>Variazione Debiti Fornitori che azzera la Liquidità (gg)</td><td class="">-33</td><td class="text-warning">Moderata sensibilità all'accorciamento dei termini di pagamento</td></tr>
+                                 </tbody>
+                              </table>
+                         </div>
+                         <p class="mt-3">L'interpretazione dei risultati evidenzia:</p>
+                         <ul>
+                             <li>Buona struttura di costi con prevalenza di componenti variabili che conferisce flessibilità operativa</li>
+                             <li>Elevata redditività che fornisce un significativo buffer di sicurezza</li>
+                             <li>Moderata sensibilità alla gestione del capitale circolante (in particolare crediti)</li>
+                             <li>Punto di pareggio (Break-Even Point) ben distanziato dal livello attuale di fatturato, con un margine di sicurezza del 20,69%</li>
+                         </ul>
+                     </div>
+                 </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">6.6 Risultati Stress Test</h5></div>
+                 <div class="card-body">
+                    <h6>Tabella 6.6.1: Risultati Stress Test</h6>
+                    <div class="table-responsive small">
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light"><tr><th>Stress Test</th><th>Superato</th><th>Valore critico</th><th>Valore attuale</th><th>Margine di sicurezza</th></tr></thead>
+                            <tbody>
+                                <tr><td>Variazione Ricavi</td><td class="text-success">✓</td><td>-20,69%</td><td>+7,46%</td><td>28,15%</td></tr>
+                                <tr><td>Variazione Costi Fissi</td><td class="text-success">✓</td><td>+42,53%</td><td>Non applicabile</td><td>42,53%</td></tr>
+                                <tr><td>Variazione Crediti</td><td class="text-success">✓</td><td>+22 gg</td><td>110 gg</td><td>22 gg addizionali sostenibili</td></tr>
+                                <tr><td>Variazione Debiti</td><td class="text-success">✓</td><td>-33 gg</td><td>49 gg</td><td>33 gg di riduzione sostenibili</td></tr>
+                                <tr><td>Anomalie scenario corrente</td><td class="text-success">✓</td><td>Multipli</td><td>Nessuna</td><td>Tutti i test superati</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <p class="small mt-3 mb-1">Lo stress test conferma la buona resilienza dell'azienda anche in scenari avversi. I test superati dimostrano che, nonostante l'elevato DSO (110 giorni), l'azienda mantiene una capacità di assorbimento di ulteriori 22 giorni di ritardo negli incassi prima di esaurire la liquidità disponibile.</p>
+                     <p class="small mt-2">L'assenza di anomalie nello scenario corrente (EBIT < 0, Utile < 0, GG Crediti Clienti > 120, GG Debiti Fornitori > 120, Patrimonio Netto < 0, Liquidità < 0) conferma il profilo di rischio contenuto dell'azienda.</p>
+                 </div>
+             </div>
+
+
+             <h2 class="section-title mt-5" id="recommendations"><i class="fas fa-lightbulb me-2"></i>7. RACCOMANDAZIONI</h2>
+
+            <!-- 7.1 Piano d'Azione Operativo -->
+            <div class="card mb-4 report-section">
+                 <div class="card-header card-header-primary"><h5 class="mb-0">7.1 Piano d'Azione e Raccomandazioni Operative</h5></div>
+                  <div class="card-body">
+                     <p>In base all'analisi svolta, si raccomandano le seguenti azioni prioritarie:</p>
+                     <h6>Tabella 7.1.1: Piano d'azione e raccomandazioni operative</h6>
+                     <div class="table-responsive small">
+                         <table class="table table-sm table-hover action-table" id="table_7_1_1">
+                             <thead class="table-light"><tr><th>Area</th><th>Situazione Attuale</th><th>Azione Raccomandata</th><th>Effetti Previsti</th><th>Priorità</th></tr></thead>
+                             <tbody>
+                                 <tr><td><i class="fas fa-file-invoice me-1"></i> Gestione crediti</td><td>110 giorni</td><td>Implementare sistema di monitoraggio e incentivi per pagamenti anticipati</td><td>Riduzione DSO a 90 giorni<br>(+€550.000 liquidità)</td><td><span class="status-badge bg-danger">Alta</span></td></tr>
+                                 <tr><td><i class="fas fa-landmark me-1"></i> Struttura finanziaria</td><td>Copertura immobilizzazioni 0,85</td><td>Riequilibrare la struttura patrimoniale</td><td>Incremento copertura a 1,0</td><td><span class="status-badge bg-danger">Alta</span></td></tr>
+                                 <tr><td><i class="fas fa-percentage me-1"></i> Costo del debito</td><td>18,28%</td><td>Rinegoziare condizioni finanziarie</td><td>Riduzione di 500-600 bps<br>(€130.000-160.000)</td><td><span class="status-badge bg-danger">Alta</span></td></tr>
+                                 <tr><td><i class="fas fa-balance-scale me-1"></i> Equilibrio fonti-impieghi</td><td>0,85</td><td>Rimodulazione del debito a breve in favore di forme a medio-lungo termine</td><td>Maggiore stabilità finanziaria</td><td><span class="status-badge bg-warning text-dark">Media</span></td></tr>
+                                 <tr><td><i class="fas fa-chart-line me-1"></i> Redditività</td><td>EBITDA 20,60%</td><td>Consolidare l'eccellente marginalità operativa</td><td>Mantenimento margine EBITDA > 20%</td><td><span class="status-badge bg-warning text-dark">Media</span></td></tr>
+                                 <tr><td><i class="fas fa-coins me-1"></i> Liquidità</td><td>5,87% dei ricavi</td><td>Ottimizzazione gestione tesoreria</td><td>Incremento liquidità/ricavi al 7-8%</td><td><span class="status-badge bg-warning text-dark">Media</span></td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+                  </div>
+            </div>
+
+            <!-- 7.3 Piano d'Azione per Timeframe -->
+              <div class="card mb-4 report-section">
+                   <div class="card-header card-header-secondary"><h5 class="mb-0">7.3 Piano d'Azione Articolato per Timeframe</h5></div>
+                   <div class="card-body">
+                      <h6>Tabella 7.3.1: Piano d'azione articolato per timeframe</h6>
+                      <ul class="timeline-irp">
+                          <li class="timeline-irp-item"> <div class="timeline-irp-badge priority-high">0/3m</div> <div class="timeline-irp-content"> <h6>Azioni Immediate <span class="badge bg-danger float-end">Alta</span></h6> <ul class="small">
+                              <li>Revisione policy crediti commerciali</li>
+                              <li>Analisi dettagliata costo del debito</li>
+                              <li>Verifica disallineamento capitale sociale</li>
+                          </ul> </div> </li>
+                          <li class="timeline-irp-item"> <div class="timeline-irp-badge priority-high">3/6m</div> <div class="timeline-irp-content"> <h6>Azioni a Breve <span class="badge bg-danger float-end">Alta</span></h6> <ul class="small">
+                              <li>Implementazione sistema gestione crediti</li>
+                              <li>Avvio rinegoziazione condizioni finanziarie</li>
+                              <li>Analisi investimenti effettuati</li>
+                          </ul> </div> </li>
+                          <li class="timeline-irp-item"> <div class="timeline-irp-badge priority-medium">6/12m</div> <div class="timeline-irp-content"> <h6>Azioni a Medio Termine <span class="badge bg-warning text-dark float-end">Media</span></h6> <ul class="small">
+                              <li>Rimodulazione debito a breve in M/L termine</li>
+                              <li>Ottimizzazione gestione tesoreria</li>
+                              <li>Valutazione equity/debt mix</li>
+                          </ul> </div> </li>
+                          <li class="timeline-irp-item"> <div class="timeline-irp-badge priority-low">12/24m</div> <div class="timeline-irp-content"> <h6>Azioni a Lungo Termine <span class="badge bg-success float-end">Strategiche</span></h6> <ul class="small">
+                              <li>Valutazione diversificazione del business</li>
+                              <li>Piano investimenti strategici</li>
+                              <li>Ottimizzazione struttura societaria</li>
+                          </ul> </div> </li>
+                       </ul>
+                   </div>
+              </div>
+
+            <!-- 7.4 Dashboard KPI Target -->
+             <div class="card mb-4 report-section">
+                 <div class="card-header card-header-primary"><h5 class="mb-0">7.4 Dashboard di Controllo KPI Raccomandata</h5></div>
+                  <div class="card-body">
+                     <p class="small">Si raccomanda l'implementazione di una dashboard di controllo che monitori i seguenti KPI con cadenza mensile:</p>
+                      <h6>Tabella 7.4.1: Dashboard di controllo con principali KPI</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-bordered kpi-target-table">
+                            <thead class="table-light"><tr><th>Categoria</th><th>KPI</th><th>Frequenza</th><th>Target</th><th>Ultimo valore</th><th>Alert</th></tr></thead>
+                            <tbody>
+                               <tr> <td rowspan="3">Redditività</td> <td>EBITDA margin</td> <td>Mensile</td> <td class="target-value">>20%</td> <td class="value-ok">20,60%</td> <td><17%</td> </tr>
+                               <tr> <td>Margine contribuzione</td> <td>Mensile</td> <td class="target-value">>40%</td> <td class="value-ok">40,12%</td> <td><35%</td> </tr>
+                               <tr> <td>ROI</td> <td>Trimestrale</td> <td class="target-value">>9%</td> <td class="value-ok">9,41%</td> <td><7%</td> </tr>
+                               <tr> <td rowspan="3">Liquidità</td> <td>Cash Flow Operativo/Ricavi</td> <td>Mensile</td> <td class="target-value">>14%</td> <td class="value-ok">14,13%</td> <td><10%</td> </tr>
+                               <tr> <td>Liquidità/Ricavi</td> <td>Mensile</td> <td class="target-value">>6%</td> <td class="value-warn">5,87%</td> <td><4%</td> </tr>
+                               <tr> <td>Variazione netta di cassa</td> <td>Mensile</td> <td class="target-value">Positiva</td> <td class="value-crit">-78.707 €</td> <td>Negativa per 2 mesi</td> </tr>
+                               <tr> <td rowspan="3">Capitale Circolante</td> <td>DSO (giorni crediti)</td> <td>Mensile</td> <td class="target-value"><90 gg</td> <td class="value-warn">110 gg</td> <td>>120 gg</td> </tr>
+                               <tr> <td>DPO (giorni fornitori)</td> <td>Mensile</td> <td class="target-value">45-60 gg</td> <td class="value-ok">49 gg</td> <td><30 gg</td> </tr>
+                               <tr> <td>Ciclo del circolante</td> <td>Mensile</td> <td class="target-value"><50 gg</td> <td class="value-warn">61 gg</td> <td>>70 gg</td> </tr>
+                               <tr> <td rowspan="3">Solidità</td> <td>PFN/EBITDA</td> <td>Trimestrale</td> <td class="target-value"><1,5</td> <td class="value-ok">1,00</td> <td>>2,0</td> </tr>
+                               <tr> <td>Leva finanziaria (D/E)</td> <td>Trimestrale</td> <td class="target-value"><0,5</td> <td class="value-ok">0,39</td> <td>>0,7</td> </tr>
+                               <tr> <td>Copertura immobilizzazioni</td> <td>Trimestrale</td> <td class="target-value">>0,9</td> <td class="value-warn">0,85</td> <td><0,8</td> </tr>
+                            </tbody>
+                         </table>
+                      </div>
+                  </div>
+             </div>
+
+             <!-- 7.5 Frequenza Revisione e Alerting -->
+              <div class="card mb-4 report-section">
+                   <div class="card-header card-header-secondary"><h5 class="mb-0">7.5 Frequenza di Revisione e Sistema di Alerting Raccomandati</h5></div>
+                   <div class="card-body revision-list small">
+                      <h6>Tabella 7.5.1: Sistema di monitoraggio e alerting</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-hover">
+                           <thead class="table-light"><tr><th>Area</th><th>Frequenza monitoraggio</th><th>Soglie di alerting</th><th>Procedura escalation</th></tr></thead>
+                            <tbody>
+                                <tr><td>Liquidità</td><td>Settimanale</td><td>- Riduzione >10% vs mese precedente<br>- Liquidità/Ricavi <4%<br>- Cash flow operativo mensile negativo</td><td>1. Alert team finanziario<br>2. Revisione forecast di cassa<br>3. Escalation direttore finanziario</td></tr>
+                                <tr><td>Capitale circolante</td><td>Bisettimanale</td><td>- DSO >120 giorni<br>- DPO <30 giorni<br>- Ciclo circolante >70 giorni</td><td>1. Alert team amministrativo<br>2. Analisi scostamenti<br>3. Escalation controller</td></tr>
+                                <tr><td>Redditività</td><td>Mensile</td><td>- EBITDA margin <17%<br>- Margine contribuzione <35%<br>- ROI <7%</td><td>1. Alert team controllo gestione<br>2. Analisi costi/ricavi<br>3. Escalation direzione generale</td></tr>
+                                <tr><td>Solidità</td><td>Trimestrale</td><td>- PFN/EBITDA >2,0<br>- Leva finanziaria >0,7<br>- Copertura immobilizzazioni <0,8</td><td>1. Alert direzione finanziaria<br>2. Review proiezioni finanziarie<br>3. Escalation CdA</td></tr>
+                            </tbody>
+                         </table>
+                      </div>
+                       <p class="mt-3">Si raccomanda inoltre l'implementazione di un sistema di reportistica integrato che includa:</p>
+                       <ol>
+                           <li>Report settimanale di tesoreria (liquidità e previsioni a 30 giorni)</li>
+                           <li>Report quindicinale del capitale circolante (aging crediti/debiti)</li>
+                           <li>Flash report mensile (performance economica vs budget e anno precedente)</li>
+                           <li>Forecast rolling a 12 mesi (aggiornato trimestralmente)</li>
+                           <li>Dashboard interattiva con KPI in tempo reale per il management</li>
+                       </ol>
+                       <p>Questo sistema permetterà di identificare tempestivamente segnali di deterioramento e implementare azioni correttive prima che diventino criticità conclamate.</p>
+                  </div>
+              </div>
+
+             <!-- Tabella Riepilogativa Interventi Finali -->
+             <div class="card summary-card mb-4 report-section">
+                 <div class="card-header bg-success text-white"><h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Tabella Riepilogativa Interventi Prioritari</h5></div>
+                 <div class="card-body"> <div class="table-responsive"> <table class="table table-sm table-striped table-hover action-table"> <thead class="table-light"> <tr><th>Area</th><th>Situazione Attuale</th><th>Azione Raccomandata</th><th>Effetti Previsti</th><th>Priorità</th></tr></thead> <tbody> 
+                     <tr><td><span class="icon-circle icon-circle-sm bg-icon-danger"><i class="fas fa-file-invoice"></i></span> Revisione politiche di credito</td><td>DSO: 110 giorni</td><td>Implementazione sistema strutturato di credit management</td><td class="text-success">Riduzione DSO a 90 giorni<br>+€550.000 liquidità</td><td><span class="status-badge bg-danger">Alta</span></td></tr> 
+                     <tr><td><span class="icon-circle icon-circle-sm bg-icon-danger"><i class="fas fa-percentage"></i></span> Ottimizzazione costo del debito</td><td>18,28% dei debiti</td><td>Rinegoziazione condizioni finanziarie</td><td class="text-success">Riduzione di 500-600 bps<br>+€130.000-160.000/anno</td><td><span class="status-badge bg-danger">Alta</span></td></tr> 
+                     <tr><td><span class="icon-circle icon-circle-sm bg-icon-danger"><i class="fas fa-landmark"></i></span> Riequilibrio struttura finanziaria</td><td>Copertura immobilizzazioni: 0,85</td><td>Rimodulazione debito a breve in M/L termine</td><td class="text-success">Incremento copertura a >0,95<br>Maggiore stabilità</td><td><span class="status-badge bg-danger">Alta</span></td></tr> 
+                     <tr><td><span class="icon-circle icon-circle-sm bg-icon-warning"><i class="fas fa-chart-line"></i></span> Valorizzazione investimenti</td><td>Immobilizzazioni: +641,4%</td><td>Monitoraggio ROI degli investimenti effettuati</td><td class="text-success">Ottimizzazione rendimento<br>+3-5% ROI</td><td><span class="status-badge bg-warning text-dark">Media</span></td></tr> 
+                     <tr><td><span class="icon-circle icon-circle-sm bg-icon-warning"><i class="fas fa-coins"></i></span> Gestione liquidità</td><td>Liquidità/Ricavi: 5,87%</td><td>Implementazione cash pooling e treasury management</td><td class="text-success">Incremento al 7-8%<br>+€100.000-200.000</td><td><span class="status-badge bg-warning text-dark">Media</span></td></tr> 
+                 </tbody> </table> </div> 
+                 <p class="mt-3 small">ABBREVIA S.p.A. presenta un eccellente profilo economico-finanziario, caratterizzato da una crescita significativa, redditività superiore ai benchmark di settore e struttura finanziaria solida. I significativi investimenti effettuati nel 2024, evidenziati dall'incremento delle immobilizzazioni e degli ammortamenti, rappresentano la principale dinamica da monitorare nei prossimi esercizi. L'implementazione delle raccomandazioni proposte consentirà di ottimizzare ulteriormente il profilo economico-finanziario dell'azienda, migliorando significativamente gli indicatori di bancabilità e la percezione di solidità aziendale da parte degli stakeholder finanziari.</p> </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer no-print">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>SCAN360 © <span id="currentYearFooter">2025</span> Kitzanos | Versione 17.0</div>
+                <div><img src="../assets/img/logo_kitzanos_mini.png" alt="Kitzanos"></div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap and other Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Imposta l'anno corrente nel footer
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+        
+        // Funzione per la stampa
+        function printDocument() {
+            window.print();
+        }
+        
+        // Funzione per il logout (simulata)
+        function logout() {
+            alert('Logout simulato. In un ambiente reale, verrai disconnesso dal sistema.');
+        }
+        
+        // Imposta il badge IRP in base alla categoria
+        document.addEventListener('DOMContentLoaded', function() {
+            // ABBREVIA ha IRP 85,81 categoria B+
+            const irpElement = document.getElementById('irp-header-badge');
+            irpElement.textContent = 'IRP: 85,81 (B+)';
+            irpElement.classList.add('bg-success');
+        });
+    </script>
+    <scan-chat data-bot-id="f50e33b1-2e93-4460-ac96-17200ab5487a"></scan-chat>
+    <script src="../js/bundle.js"></script>
+</body>
+</html>
