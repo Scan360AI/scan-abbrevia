@@ -528,6 +528,262 @@
              }
          });
     </script>
+<script>
+// Inizializzazione grafici per ABBREVIA S.p.A. - Parte 2
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Grafico 2.1: Andamento Ricavi ed EBITDA
+    const ctx1 = document.getElementById('economicTrendChart');
+    if (ctx1) {
+        new Chart(ctx1.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Ricavi (€000)',
+                        data: [7827, 9076, 9753],
+                        backgroundColor: '#191970',
+                        yAxisID: 'y-ricavi',
+                        order: 1
+                    },
+                    {
+                        label: 'EBITDA (€000)',
+                        data: [1495, 1626, 2009],
+                        backgroundColor: '#4a69bd',
+                        yAxisID: 'y-ricavi',
+                        order: 1
+                    },
+                    {
+                        label: 'EBITDA Margin (%)',
+                        data: [19.1, 17.9, 20.6],
+                        type: 'line',
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        yAxisID: 'y-percentuale',
+                        order: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    'y-ricavi': {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Valore (€000)'
+                        }
+                    },
+                    'y-percentuale': {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'EBITDA Margin (%)'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+    
+    // Grafico 2.2: Evoluzione delle Principali Marginalità
+    const ctx2 = document.getElementById('marginalityChart');
+    if (ctx2) {
+        new Chart(ctx2.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'EBITDA Margin',
+                        data: [19.1, 17.9, 20.6],
+                        borderColor: '#191970',
+                        backgroundColor: 'rgba(25, 25, 112, 0.1)',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'ROS',
+                        data: [16.6, 14.2, 8.3],
+                        borderColor: '#4a69bd',
+                        backgroundColor: 'rgba(74, 105, 189, 0.1)',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Margine di Contribuzione',
+                        data: [37.2, 36.0, 40.1],
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Utile Netto/Ricavi',
+                        data: [11.6, 10.3, 5.8],
+                        borderColor: '#FFC107',
+                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Grafico 2.3: Andamento Redditività
+    const ctx3 = document.getElementById('profitabilityIndicesChart');
+    if (ctx3) {
+        new Chart(ctx3.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['ROI', 'ROE', 'ROS'],
+                datasets: [
+                    {
+                        label: '2022',
+                        data: [95.87, 44.47, 16.6],
+                        backgroundColor: '#191970'
+                    },
+                    {
+                        label: '2023',
+                        data: [85.93, 46.94, 14.2],
+                        backgroundColor: '#4a69bd'
+                    },
+                    {
+                        label: '2024',
+                        data: [9.41, 8.56, 8.3],
+                        backgroundColor: '#4CAF50'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Grafico 2.4: Evoluzione della Struttura Finanziaria
+    const ctx4 = document.getElementById('leverageChart');
+    if (ctx4) {
+        new Chart(ctx4.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'D/E Ratio',
+                        data: [0.12, 0.08, 0.39],
+                        borderColor: '#191970',
+                        backgroundColor: 'rgba(25, 25, 112, 0.1)',
+                        yAxisID: 'y-ratio',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Costo del Debito (%)',
+                        data: [20.46, 2.80, 9.68],
+                        borderColor: '#F44336',
+                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                        yAxisID: 'y-percentuale',
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    'y-ratio': {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'D/E Ratio'
+                        }
+                    },
+                    'y-percentuale': {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Costo del Debito (%)'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
     <scan-chat data-bot-id="f50e33b1-2e93-4460-ac96-17200ab5487a"></scan-chat>
     <script src="../js/bundle.js"></script>
 </body>

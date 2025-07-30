@@ -488,7 +488,7 @@
             <div class="card mb-4 report-section">
                 <div class="card-header"><h5 class="mb-0">4.7 KPI della Crisi d'Impresa (CCII)</h5></div>
                 <div class="card-body">
-                    <p>In riferimento agli indicatori della crisi d'impresa definiti dal Codice della Crisi d'Impresa e dell'Insolvenza (CCII), l'azienda mostra una <strong>parziale conformità</strong> (50%) con "3 su 6 indicatori in linea".</p>
+                    <p>In riferimento agli indicatori della crisi d'impresa definiti dal Codice della Crisi d'Impresa e dell'Insolvenza (CCII), l'azienda mostra una <strong>parziale conformità</strong> (50%) con "4 su 6 indicatori in linea".</p>
                     
                     <div class="table-responsive mb-3">
                         <table class="table table-sm table-striped table-hover">
@@ -506,7 +506,7 @@
                         </table>
                     </div>
                     <div class="alert-box alert-warning">
-                        <h5>Risultato complessivo: 3/6 indicatori in linea</h5>
+                        <h5>Risultato complessivo: 4/6 indicatori in linea</h5>
                         <p>L'azienda presenta una parziale conformità agli indicatori della crisi, con un potenziale punto di attenzione nell'incidenza degli oneri finanziari sui ricavi (2,56%), che supera la soglia di allarme settoriale (1,5%). Questo indicatore, pur non essendo critico in senso assoluto, merita un monitoraggio costante, soprattutto alla luce dell'elevato costo medio del debito (18,28%).</p>
                     </div>
                     <p>Il report Leanus evidenzia alcuni punti di attenzione per ABBREVIA S.p.A.:</p>
@@ -636,47 +636,71 @@
              document.getElementById('irp-header-badge').innerHTML = `<i class="fas fa-shield-alt me-1"></i> IRP: ${irpScoreValue} (${irpCategory})`;
          });
 
-        // Chart per sostenibilità debito
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('debtSustainabilityChart').getContext('2d');
-            const debtSustainabilityChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['PFN/EBITDA', 'Leva (D/E)', 'DSCR', 'Autonomia', 'Liquidità', 'CFO/Ricavi'],
-                    datasets: [{
-                        label: '2023',
-                        data: [80, 85, 75, 80, 70, 75],
-                        borderColor: 'rgba(54, 162, 235, 0.8)',
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderWidth: 2
-                    }, {
-                        label: '2024',
-                        data: [95, 90, 98, 85, 65, 85],
-                        borderColor: 'rgba(75, 192, 192, 0.8)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 2
-                    }]
+// Chart per sostenibilità debito - CON LAYOUT CORRETTO
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('debtSustainabilityChart');
+    if (ctx) {
+        new Chart(ctx.getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['PFN/EBITDA', 'Leva (D/E)', 'EBITDA/OF', 'DSCR', 'CFO/Ricavi', 'Copertura'],
+                datasets: [{
+                    label: '2023',
+                    data: [80, 85, 75, 80, 70, 75],
+                    borderColor: 'rgba(54, 162, 235, 0.8)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderWidth: 2
+                }, {
+                    label: '2024',
+                    data: [95, 90, 98, 85, 65, 85],
+                    borderColor: 'rgba(75, 192, 192, 0.8)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10
+                    }
                 },
-                options: {
-                    scales: {
-                        r: {
-                            min: 0,
-                            max: 100,
-                            beginAtZero: true,
-                            ticks: {
-                                display: false
-                            }
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        beginAtZero: true,
+                        ticks: {
+                            display: false
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 9
+                            },
+                            padding: 5
                         }
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom'
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 10,
+                            font: {
+                                size: 10
+                            }
                         }
                     }
                 }
-            });
+            }
         });
+    }
+});
 
         function printDocument() {
             window.print();

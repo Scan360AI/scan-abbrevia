@@ -165,7 +165,7 @@
         <div class="col-md-8">
             <h4 class="mb-3 fw-bold" style="color: var(--primary);">Valutazione Generale</h4>
             <p class="mb-3">Profilo di rischio <strong>basso con solidità complessivamente elevata</strong>. L'azienda presenta un'eccellente redditività operativa (EBITDA margin 20,60%) e una solida struttura patrimoniale, con alcune aree di miglioramento nella correlazione fonti-impieghi (copertura immobilizzazioni 0,85). La capacità di generazione di cassa operativa è ottima (14,13% dei ricavi), ma si evidenziano criticità nell'elevato costo del debito (18,28%) e nei tempi di incasso (DSO 110 giorni).</p>
-            <a href="#crisis-framework" class="btn btn-warning btn-sm mb-3 btn-pill"> <i class="fas fa-exclamation-triangle me-1"></i> Verifica Crisi d'Impresa (3 su 6) </a>
+            <a href="#crisis-framework" class="btn btn-warning btn-sm mb-3 btn-pill"> <i class="fas fa-exclamation-triangle me-1"></i> Verifica Crisi d'Impresa (4 su 6) </a>
             <div class="other-ratings border-top pt-3 mt-3">
                 <h6 class="card-title-small mb-2">Altri Indicatori di Supporto:</h6>
                 <ul class="list-unstyled mb-0 row gx-3 gy-2">
@@ -234,7 +234,7 @@
               <div class="card mb-4 report-section">
                  <div class="card-header"><h5 class="mb-0">Verifica Indicatori e Framework Normativo</h5></div>
                   <div class="card-body">
-                      <div class="alert-box alert-warning d-flex align-items-center"> <span class="icon-circle bg-icon-warning me-3"><i class="fas fa-exclamation-triangle"></i></span> <div> <h6 class="mb-1">Indicatori CCII: <strong>In linea con 3 su 6 indicatori</strong></h6> <p class="small mb-0">L'analisi degli indicatori della crisi calcolati sullo schema civilistico mostra che l'impresa presenta una parziale conformità agli indicatori previsti dal CCII. Nonostante l'eccellente DSCR (17,767), si evidenzia un'area di attenzione nell'incidenza degli oneri finanziari sui ricavi (2,56%), che supera la soglia di allarme settoriale (1,5%).</p> </div> </div>
+                      <div class="alert-box alert-warning d-flex align-items-center"> <span class="icon-circle bg-icon-warning me-3"><i class="fas fa-exclamation-triangle"></i></span> <div> <h6 class="mb-1">Indicatori CCII: <strong>In linea con 4 su 6 indicatori</strong></h6> <p class="small mb-0">L'analisi degli indicatori della crisi calcolati sullo schema civilistico mostra che l'impresa presenta una parziale conformità agli indicatori previsti dal CCII. Nonostante l'eccellente DSCR (17,767), si evidenzia un'area di attenzione nell'incidenza degli oneri finanziari sui ricavi (2,56%), che supera la soglia di allarme settoriale (1,5%).</p> </div> </div>
                        <h6 class="mt-4">Contesto Normativo Rilevante:</h6>
                        <ul class="small"><li><strong>D.Lgs. 14/2019 (CCII)</strong> - Richiede implementazione di adeguati assetti organizzativi e monitoraggio continuativo degli indicatori di crisi</li><li><strong>Art. 2086 c.c.</strong> - Obbligo di adeguati assetti per PMI con 36 dipendenti</li><li><strong>Normative settore servizi investigativi</strong> - Gestione dati sensibili, privacy (GDPR), licenze specifiche</li><li><strong>Principi OIC</strong> per la predisposizione del bilancio PMI</li><li><strong>Regolamentazioni specifiche per attività investigative</strong></li></ul>
                        <p class="small text-muted mt-3">Il DSCR di 17,767 indica un'eccellente capacità di copertura del servizio del debito, con un valore ampiamente superiore alla soglia minima richiesta dal sistema bancario (1,2) e alla soglia di allerta prevista dal CCII (1,0). Questo conferma la solida capacità dell'azienda di generare flussi di cassa operativi sufficienti a coprire gli impegni finanziari.</p>
@@ -314,6 +314,125 @@
              }
          });
      </script>
+<script>
+// Inizializzazione grafici per ABBREVIA S.p.A.
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Grafico 1: Trend Indicatori Principali
+    const ctx1 = document.getElementById('mainMetricsChart');
+    if (ctx1) {
+        new Chart(ctx1.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Ricavi',
+                        data: [7827, 9076, 9753],
+                        borderColor: '#191970',
+                        backgroundColor: 'rgba(25, 25, 112, 0.1)',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'EBITDA',
+                        data: [1495, 1626, 2009],
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Utile Netto',
+                        data: [912, 938, 565],
+                        borderColor: '#FFC107',
+                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': €' + context.parsed.y.toLocaleString('it-IT') + 'k';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '€' + value + 'k';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    // Grafico 2: Trend Capitale Investito Netto
+    const ctx2 = document.getElementById('currentAssetsLiabilitiesChart');
+    if (ctx2) {
+        new Chart(ctx2.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Attivo Fisso Netto',
+                        data: [812, 1050, 7783],
+                        backgroundColor: '#191970'
+                    },
+                    {
+                        label: 'Capitale Circolante',
+                        data: [3267, 3481, 3763],
+                        backgroundColor: '#4a69bd'
+                    },
+                    {
+                        label: 'Patrimonio Netto',
+                        data: [2050, 1998, 6600],
+                        backgroundColor: '#4CAF50'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': €' + context.parsed.y.toLocaleString('it-IT') + 'k';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '€' + value + 'k';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
 <scan-chat data-bot-id="f50e33b1-2e93-4460-ac96-17200ab5487a"></scan-chat>
 <script src="../js/bundle.js"></script>
 </body>
